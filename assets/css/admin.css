@@ -1,0 +1,67 @@
+@CHARSET "UTF-8";
+html { direction: rtl }
+body { background: #f1f1f1; cursor: default; }
+
+/*
+========== Fontface ========== */
+@font-face {
+ font-family: 'Droid';
+ font-style: normal;
+ font-weight: 400;
+ src: url(../fonts/DroidNaskh-Regular.eot);
+ src: url(../fonts/DroidNaskh-Regular.eot?#iefix) format('embedded-opentype'), url(../fonts/DroidNaskh-Regular.woff2) format('woff2'), url(../fonts/DroidNaskh-Regular.woff) format('woff'), url(../fonts/DroidNaskh-Regular.ttf) format('truetype');
+}
+
+@font-face {
+ 	font-family: 'BYekan';
+ 	src:url('../fonts/BYekan.eot?#') format('eot'),  /* IE6-8 */  
+ 	url('../fonts/BYekan.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/  
+ 	url('../fonts/BYekan.ttf') format('truetype');  /* Saf3-5, Chrome4+, FF3.5, Opera 10+ */
+}
+
+/* ========== General ========== */
+.er-float-right { float: right }
+.er-float-left { float: left }
+
+
+
+/* ========== Top Logo ========== */
+.er-toplogo { background: #222; height: 120px; text-align: center; padding: 10px 0; }
+
+/* ========== admin Container ========== */
+.er-admin-contaner { margin-top: 30px; }
+
+/* ========== admin Menu ========== */
+.er-topmenu { background: #333; height: 40px; -moz-box-shadow: 0px 3px 0px rgba(0,0,0,0.1); -webkit-box-shadow: 0px 3px 0px rgba(0,0,0,0.1); box-shadow: 0px 3px 0px rgba(0,0,0,0.1); }
+.er-topmenu ul.uk-navbar-nav > li > a { font-family: 'BYekan'; line-height: 36px; font-size: 16px; height: 40px; margin-top : 0; color: #eee; text-shadow: none; }
+.er-topmenu ul.uk-navbar-nav > li > a:hover, .er-topmenu ul.uk-navbar-nav > li.uk-active > a, .er-topmenu ul.uk-navbar-nav > li.uk-open > a { color: #fff; background: #f8a82a; text-shadow: 0 1px 0 #da7610; }
+.er-topmenu ul.uk-navbar-nav > li > a i { padding-left: 5px; margin-top: -2px; font-size: 12px; vertical-align: middle; }
+
+.er-icon { margin-left: 5px; }
+.er-nav-divider { margin: 0 !important; }
+.er-admin-title { font-family: 'BYekan'; font-size: 22px; }
+.er-admin-menu {  }
+.er-admin-menu .er-admin-menu-icon { margin-left: 10px; box-sizing: border-box; color: #fff; border-radius: 100%; background: #f8a82a; width: 28px; height: 28px; text-align: center; line-height: 28px !important; font-size: 14px; }
+.er-admin-menu .uk-active .er-admin-menu-icon { background: #555; }
+.er-admin-menu .uk-nav-side>li>a:hover, .er-admin-menu .uk-nav-side>li>a:focus { text-shadow: none; }
+
+/* ========== admin List ========== */
+.er-table-admin-list { background: #fff; border: 1px solid #ddd; border-radius: 4px; }
+.er-table-admin-list th { font-weight: 500; font-size: 15px; font-family: 'BYekan'; background: #aaa; color: #fff; vertical-align: middle; }
+.er-table-admin-list td { vertical-align: middle; }
+
+/* ========== admin Content Labels ========== */
+.er-modir-lables-list { margin-top: 5px; padding-top: 5px; border-top: 1px dashed #ccc; }
+.er-modir-lables-list ul { list-style: none; padding: 0; margin: 0; }
+.er-modir-lables-list ul li { display: inline-block; background: #999; color: #fff; border-radius: 3px; padding: 1px 2px 2px 8px; margin: 0 0 5px 5px; font-size: 12px; } 
+.er-modir-lables-list ul li span { color: #fff; background: #000; border-radius: 2px; margin-left: 5px; padding: 0; }
+
+.er-label-dropdown-parrent { position: relative; width: 200px; }
+.er-label-dropdown { position: absolute; top: 35px; right: 0; background: #fff; border: 1px solid #ddd; padding: 5px 0; width: 200px; z-index: 10; display: none; }
+
+
+
+
+
+
+
