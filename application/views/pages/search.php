@@ -21,6 +21,7 @@ $tatarikh = trim($_REQUEST['tatarikh']);
 $from_city = trim($_REQUEST['from_city']);
 $to_city = trim($_REQUEST['to_city']);
 $extra = 'extra';
+$results = array();
 if ($aztarikh != '' && $tatarikh != '' && $from_city != '' && $to_city != '') {
     $results_tmp = search_class::search($aztarikh, $tatarikh, $from_city, $to_city, $extra);
     $results = $results_tmp["data"];

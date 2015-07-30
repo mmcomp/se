@@ -159,7 +159,10 @@ class Inc_model extends CI_Model {
 
     function fixDate($inp) {
         $tmp = explode("/", $inp);
-        return($tmp[2] . '/' . $tmp[1] . '/' . $tmp[0]);
+        $out = '';
+        if(count($tmp)==3)
+            $out = $tmp[2] . '/' . $tmp[1] . '/' . $tmp[0];
+        return($out);
     }
 
 }
