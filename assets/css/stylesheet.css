@@ -1,0 +1,526 @@
+*{
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+    font-family: Nazanin;
+}
+@font-face {
+    font-family: Yekan;
+    src: url(../fonts/Yekan.ttf);
+}
+@font-face {
+    font-family: Nazanin ;
+    src: url(../fonts/Nazanin.ttf);
+}
+.gh-border-radius {
+    border-radius: 5px;
+}
+.gh-main {
+    width: 980px;
+    margin: 0 auto;
+}
+/*header*/
+.gh-header-bar{
+    width: 100%;
+    height: 110px;
+    background-color: #35343c;
+}
+.gh-header-body {
+    width: 980px;
+    height: 110px;
+    margin: 0 auto;
+}
+.gh-header-body-right{
+    width: 500px;
+    height: 110px;
+    float: right;
+}
+.gh-header-body-left{
+    width: 410px;
+    height: 110px;
+    float: left;
+}
+.gh-logo {
+    width: 500px;
+    height: 110px;
+}
+.gh-quick-contact {
+    width: 160px;
+    height: 40px;
+    border-radius: 0 0 5px 5px;
+    background-color: #63d2e5;
+    float: left;
+}
+.gh-quick-contact p {
+    direction: ltr;
+    font-family: tahoma;
+    color: #fff;
+    font-size: 18px;
+    position: absolute;
+    margin-top: -38px;
+    margin-right: 6px;
+}
+.gh-q-n {
+    position: absolute;
+    color: 000;
+    margin-top: -20px;
+    margin-right: 45px;
+    direction: ltr;
+    font-family: tahoma;
+    font-size: 18px;
+}
+.gh-header-info {
+    width: 410px;
+    height: 30px;
+    border-radius: 5px 5px 0 0;
+    background-color: #505155;
+    position: absolute;
+    margin-top: 80px;
+}
+/*search and slideshow*/
+.gh-search_slideshow {
+    width: 980px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+.gh-search_slideshow-right {
+    width: 330px;
+    height: 350px;
+    float: right;
+    background-color: #35343c;
+}
+.gh-search_slideshow-left{
+    width: 640px;
+    height: 350px;
+    float: left;
+}
+.gh-search-box {
+    width: 330px;
+    height: 350px;
+}
+.gh-search-box-title {
+    width: 330px;
+    height: 40px;
+}
+.gh-search-box-title ul {
+    list-style: none;
+}
+.gh-search-box-title ul li {
+    float: right;
+    width: 165px;
+    line-height: 40px;
+    text-align: center;
+    border-bottom: 2px solid #63d2e5;
+}
+.gh-search-box-title ul li a {
+    text-decoration: none;
+    display: block;
+    color: #fff;
+    font-family: Yekan;
+    font-size: 18px;
+}
+.gh-search-box form {
+    color:#fff;
+}
+.gh-search-box span {
+    display: block;
+    width: 300px;
+    height: 30px;
+    margin: 15px;
+    font-size: 16px;
+}
+.gh-search-box span input {     
+    float: left;
+    width: 230px;
+    border-radius: 5px;
+    color: #000;
+}
+.gh-search-box span select {     
+    float: left;
+    width: 230px;
+    border-radius: 5px;
+    color: #000;
+}
+.gh-search-box input[type="radio"]{
+    margin: 20px 15px 0 0;
+}
+.gh-search-box input[type="submit"]{
+    background-color: #bbed3c;
+    font-size: 18px;
+    color: #35343c;
+}
+
+/*middle*/
+.gh-middle {
+    width: 980px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+.gh-middle-right {
+    width: 328px;
+    border: 1px solid #c1bfc4;
+    float: right;
+}
+.gh-middle-right header {
+    background-color: #35343c;
+    line-height: 41px;
+    border-radius: 5px 5px 0 0;
+    padding-right: 60px;
+    color: #fff;
+    font-family: Yekan;
+    font-size: 18px;
+}
+.gh-middle-right ul {
+    list-style: none;
+}
+.gh-middle-right ul li {
+    width: 300px;
+    height: 145px;
+    margin: 15px 15px;
+}
+.gh-middle-right ul li a {
+    text-decoration: none;
+    display: block;
+}
+.gh-middle-right img {
+    border-radius: 5px;
+    opacity: .7;
+}
+.gh-middle-left {
+    width: 640px;
+    height: 550px;
+    float: left;
+}
+.gh-middle-left-row {
+    width: 640px;
+    height: 267px;
+    margin-bottom: 10px;
+}
+.gh-right {
+    width: 312px;
+    height: 261px;
+    float: right;
+    border-radius: 5px;
+    border: 1px solid #c1bfc4;
+}
+.gh-left {
+    width: 312px;
+    height: 261px;
+    float: left;
+    border-radius: 5px;
+    border: 1px solid #c1bfc4;ّ
+}
+.gh-middle-left img {
+    border-radius: 5px 5px 0 0;
+}
+.gh-middle-left p {
+    float: right;
+    line-height: 50px;
+    padding-right: 15px;
+    font-size: 16px;
+}
+.gh-middle-left a{
+    display: block;
+    width: 160px;
+    line-height: 30px;
+    float: left;
+    text-decoration: none;
+    margin: 12px 0 0 15px;
+    background-color: #35343c;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 16px;
+}
+/*footer*/
+.gh-footer-bar {
+    width: 100%;
+    height: 200px;
+    background-color: #35343c;
+}
+.gh-footer {
+    width: 980px;
+    height: 200px;
+    margin: 0 auto;
+}
+.gh-footer-right {
+    width: 330px;
+    height: 150px;
+    float: right;
+    margin: 25px 100px 0 0;
+}
+.gh-footer-right { 
+    width: 330px;;
+    height: 150px;
+}
+.gh-g-map {
+    width: 330px;
+    height: 150px;
+    border: 1px solid #63d2e5;
+}
+.gh-add-img {
+    position: absolute;
+    margin-right: 148px;
+    margin-top: -14px;
+}
+.gh-footer-left {
+    width: 330px;
+    height: 150px;
+    float: left;
+    margin: 25px 0 0 100px;
+    border: 1px solid #63d2e5;
+}
+.gh-tell-img {
+    position: absolute;
+    margin-right: 148px;
+    margin-top: -14px;
+}
+.gh-footer-left p {
+    font-family: tahoma;
+    direction: ltr;
+    width: 330px;
+    color: #fff;
+    float: left;
+    text-align: justify;
+    line-height: 30px;
+    margin: 30px 0 0 60px;
+    word-spacing: 5px;
+}
+/*search page*/
+.gh-search-header {
+    width: 980px;
+    height: 60px;
+    background-color: #e8ebed;
+}
+.gh-search-header a {
+    display: block;
+    width: 150px;
+    height: 30px;
+    float: left;
+    margin: 15px 0 0 20px;;
+    background-color: #63d2e5;
+    text-align: center;
+    line-height: 30px;
+    font-family: Yekan;
+    font-size: 18px;
+    color: #34363d;
+    text-decoration: none !important;
+}
+.gh-city-time-right {
+    height: 60px;
+    float: right;
+    font-size: 18px;
+    padding: 5px;
+    text-align: center;
+}
+.gh-city-time-left {
+    height: 60px;
+    float: right;
+    font-size: 18px;
+    padding: 5px;
+    text-align: center;
+}
+.gh-city-time-img {
+    float: right;
+}
+/*search page body*/
+.gh-sp {
+    width: 980px;
+    margin: 0 auto;
+    background-color: #35343c;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.gh-sp-extra-bar {
+    width: 980px;
+    height: 60px;
+    margin-bottom: 5px;
+}
+.gh-sp-right {
+    width: 330px;
+    float: right;
+    margin-right: 15px;
+}
+.gh-right-header {
+    width: 330px;
+    height: 40px;
+    background-color: #63d2e5;
+    line-height: 40px;
+    text-align: center;
+    color: #35343c;
+    font-size: 18px;
+    font-family: Yekan;
+    margin-bottom: 10px;
+
+}
+.gh-left-header-first {
+    width: 330px; 
+    height: 40px;
+    border-bottom: 1px solid #b2b5bb;
+    background-color: #e8ebed;
+    border-radius: 5px 5px 0 0;
+    float: right;
+    color: #4e88b4;
+    font-family: Yekan;
+    font-size: 18px;
+    line-height: 40px;
+    padding-right: 15px;
+}
+.gh-left-header-other {
+    width: 330px; 
+    height: 40px;
+    border-bottom: 1px solid #b2b5bb;
+    background-color: #e8ebed;
+    float: right;
+    color: #4e88b4;
+    font-family: Yekan;
+    font-size: 18px;
+    line-height: 40px;
+    padding-right: 15px;
+}
+.gh-sp-stops {
+    width: 330px;
+    height: 100px;
+    float: right;
+    background-color: #f5f7f9;
+    font-size: 16px;
+}
+.gh-sp-stops span {
+    display: block;
+    width: 330px;
+    height: 20px;
+    margin: 10px 0 20px 0;
+    padding-right: 20px;
+}
+.gh-sp-stops span input {
+    float: left;
+    margin-left: 25px;
+}
+.gh-sp-flight-time {
+    width: 330px;
+    height: 200px;
+    float: right;
+    background-color: #f5f7f9;
+    font-size: 20px;
+}
+.gh-sp-airline-name {
+    width: 330px;
+    float: right;
+    background-color: #f5f7f9;
+    font-size: 20px;
+    margin-bottom: 15px;
+    border-radius: 0 0 5px 5px;
+}
+.gh-sp-airline-name-sub {
+    height: 30px;
+    background-color: #fff;
+}
+.gh-sp-airline-name-sub span {
+    display: block;
+    font-size: 14px;
+    float: right;
+    padding: 0 15px;
+    color: #9e9e9e;
+    margin-top: 5px;
+}
+.gh-sp-airline-name table td {
+    text-align: justify;
+    width: 330px;
+    padding: 5px 45px 5px 0;
+    font-size: 16px;
+}
+/*search page body left*/
+.gh-sp-left {
+    width: 615px;
+    float: left;
+    margin-left: 10px;
+}
+.gh-sp-sort-bar {
+    width: 615px;
+    height: 40px;
+    background-color: #fff;
+    line-height: 40px;
+    padding: 0 10px;
+    font-size: 16px;
+}
+.gh-sp-sort-bar span {
+    float: left;
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+.gh-search-result {
+    width: 615px;
+    height: 130px;
+    background-color: #fff;
+    float: right;
+    margin-bottom: 10px;
+}
+.gh-search-result-left {
+    width: 165px;
+    height: 130px;
+    float: left;
+    background-color: #b2b5bb;
+    padding: 10px;
+}
+.gh-search-result-left p {
+    font-size: 20px;
+    font-family: tahoma;
+}
+.gh-search-result-left span {
+    display: block;
+    margin-top: 5px;
+    padding-right: 5px;
+}
+.gh-search-result-right {
+    width: 450px;
+    height: 130px;
+    float: right;
+    background-color: #fff;
+    border-left: 1px solid #9e9e9e;
+}
+.gh-search-result-right-body {
+    width: 450px;
+    height: 100px;
+    padding:  15px;
+    border-bottom: 1px solid #9e9e9e;
+}
+.gh-search-result-right a {
+    float: left;
+    margin: 2px 0 0 20px;
+    color: #4e88b4;
+}
+.gh-search-result-logo {
+    width: 70px;
+    height: 70px;
+    border: 1px solid #9e9e9e;
+    float: right;
+}
+.gh-src {
+    width: 90px; 
+    height: 70px;
+    float: right;
+    margin-right: 15px;
+    text-align: center;
+    padding: 8px;
+    line-height: 27px;
+}
+.gh-des {
+    width: 90px; 
+    height: 70px;
+    float: left;
+    text-align: center;
+    padding: 8px;
+    line-height: 27px;
+}
+.gh-arrow-img {
+    position: absolute;
+    margin-top: 30px;
+    margin-right: 10px;
+}
+.gh-alert {
+    color: red;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+    font-family: Yekan;
+}

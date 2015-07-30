@@ -15,7 +15,6 @@
 */
 body{
     font-family: 'DroidNaskh',tahoma;
-    background-color: #eff0ef;
 }
 .hs-logo{
     height:105px;
@@ -23,6 +22,16 @@ body{
     background: url(../img/logo_site.png) no-repeat;
     background-size:contain;
     background-position: right;
+}
+.gh-color {
+    background-color:rgb(56 , 51 , 58);
+    color: #fff;
+}
+.gh-border {
+    border-bottom: 2px solid rgb(139, 211, 233);
+}
+.gh-text-alighn {
+    text-align: center;
 }
 .container{
     margin-top: 20px;
@@ -207,7 +216,7 @@ hs-ul{
     display: inline;
 }
 .hs-font400{
-   font-size:400%;
+    font-size:400%;
 }
 .hs-footer_menu a:link{
     color: #fff;
@@ -238,20 +247,20 @@ hs-ul{
     background-color: #ddd;
 }
 textArea,input:-moz-placeholder {
-  padding-left: 5px;
-  padding-right: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 textArea,input::-moz-placeholder {
-  padding-left: 5px;
-  padding-right: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 textArea,input:-ms-input-placeholder {
-  padding-left: 5px;
-  padding-right: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 textArea, input::-webkit-input-placeholder {
-  padding-left: 5px;
-  padding-right: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 .hs-comment-div{
     width:40px;
@@ -334,8 +343,8 @@ hr.custom1 {
     color:#ffffff;
 }
 .ps-box{
-  cursor: pointer;
+    cursor: pointer;
 }
 .ps-box:nth-child(odd){
-  background: #cccccc;
+    background: #cccccc;
 }

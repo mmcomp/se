@@ -1,72 +1,54 @@
 <?php
-    if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-    if(isset($_REQUEST['s_code_melli']) && trim($_REQUEST['s_factor_id'])=='')
-    {
-        $user_obj = new user_class;
-        $user_obj->loadByCodeMelli(trim($_REQUEST['s_code_melli']));
-        if(!isset($user_obj->id))
-        {
-            $msg = '<div class="alert alert-danger">'."کاربر مورد نظر پیدا نشد".'</div>';
-        }
-        else
-        {
-            $u = new user_class($user_id);
-            if((int)$u->group_id==4)
-            {
-                redirect("hesab_factor/".$user_obj->id);
-            }
-            else
-            {
-                redirect("profile?s_user_id=".$user_obj->id);
-            }
-        }
-    }
-    else if(isset($_REQUEST['s_factor_id']) && trim($_REQUEST['s_code_melli'])=='')
-    {
-        $f = new factor_class((int)$_REQUEST['s_factor_id']);
-        if(isset($f->marhale))
-        {
-            redirect($f->marhale."/".(int)$_REQUEST['s_factor_id']);
-        }
-    }
-    $this->profile_model->loadUser($user_id);
-    $men = $this->profile_model->loadMenu();
-    $msg = '';
-    $menu_links = '';
-    foreach($men as $title=>$href)
-    {
-        $tmp = explode('/', $href);
-        $active = ($tmp[2]==$page_addr);
-        $active2 = TRUE;
-        if(isset($tmp[3]) && trim($p1)!='' && $tmp[3]!=$p1)
-            $active2 = FALSE;
-        $active = ($active & $active2);
-        $menu_links .= "<li role='presentation'".(($active)?" class='active'":"")."><a href='$href'>$title</a></li>";
-    }
-
-    $conf = new conf();
-    if($conf->home_page!='home' and trim($conf->home_page)!='')
-        redirect($conf->home_page);
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
 ?>
-<div class="row" >
-    <div class="col-sm-2" >
-        <div class="hs-margin-up-down hs-gray hs-padding hs-border" >
-              امکانات
-        </div>
-        <div class="hs-margin-up-down hs-padding hs-border" >
-            <ul class="nav nav-pills nav-stacked">
-            <?php
-                echo $menu_links;
-            ?>
-            </ul>
+<!--search and slideshow-->
+<div class="gh-search_slideshow">
+    <div class="gh-search_slideshow-right gh-border-radius">
+        <div class="gh-search-box gh-border-radius">
+            <div class="gh-search-box-title">
+                <ul>
+                    <li><a href="#">جستجوی پرواز</a></li>
+                    <li><a href="#">جستجوی هتل</a></li>
+                </ul>
+            </div>
+            <form method="post" action="<?php echo site_url(); ?>search">
+                <input type="radio" name="way" value="one-way" checked>یک طرفه
+                <input type="radio" name="way" value="two-ways">دو طرفه
+                <span>مبدا <select name="from_city">
+                        <option value="">شهر</option>
+                        <?php echo city_class::loadAll(); ?>
+                    </select></span>
+                <span>مقصد <select name="to city">
+                        <option value="">شهر</option>
+                        <?php echo city_class::loadAll(); ?>
+                    </select></span>
+                <span>از تاریخ<input class="dateValue2" type="text" name="aztarikh"></span>
+                <span>تا تاریخ<input class="dateValue2" type="text" name="tatarikh"></span>
+                <span><input type="submit" value="جستجو"></span>
+            </form>
         </div>
     </div>
-    <div class="col-sm-8" >
-        <div class="hs-margin-up-down" >
-       <?php
-            //echo $this->contents_model->loadHome();
-            echo $msg;
-        ?>
+    <div class="gh-search_slideshow-left"><img class="gh-border-radius" src="<?php echo asset_url(); ?>images/img/slideshow1.png"></div>
+</div>
+<!--middle-->
+<div class="gh-middle">
+    <div class="gh-middle-right gh-border-radius">
+        <header>تبلیغات ویژه</header>
+        <ul>
+            <li><a href="#"><img src="<?php echo asset_url(); ?>images/img/ads1.png"></a></li>
+            <li><a href="#"><img src="<?php echo asset_url(); ?>images/img/ads2.png"></a></li>
+            <li><a href="#"><img src="<?php echo asset_url(); ?>images/img/ads3.png"></a></li>
+        </ul>
+    </div>
+    <div class="gh-middle-left">
+        <div class="gh-middle-left-row">
+            <div class="gh-right"><img src="<?php echo asset_url(); ?>images/img/outside-tour.png"><p>تورهای خارجی </p><a href="#">مشاهده جزئیات ...</a></div>
+            <div class="gh-left"><img src="<?php echo asset_url(); ?>images/img/outside-hotel.png"><p>هتل های خارجی</p><a href="#">مشاهده جزئیات ...</a></div>
+        </div>
+        <div class="gh-middle-left-row">
+            <div class="gh-right"><img src="<?php echo asset_url(); ?>images/img/inside-tour.png"><p>تورهای داخلی </p><a href="#">مشاهده جزئیات ...</a></div>
+            <div class="gh-left"><img src="<?php echo asset_url(); ?>images/img/inside-hotel.png"><p>هتل های داخلی </p><a href="#">مشاهده جزئیات ...</a></div>
         </div>
     </div>
 </div>
