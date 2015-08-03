@@ -47,14 +47,15 @@
      <link rel="stylesheet" href="<?php echo asset_url(); ?>css/select2.css" type="text/css" />
      <link rel="stylesheet" href="<?php echo asset_url(); ?>css/xgrid.min.css" type="text/css" />
      <link rel="stylesheet" href="<?php echo asset_url(); ?>css/fileinput.min.css" type="text/css" />
-     <!--<link rel="stylesheet" href="<?php echo asset_url(); ?>css/bootstrap.min.css" />-->
      <link rel="stylesheet" href="<?php echo asset_url(); ?>css/bootstrap-datepicker.min.css" />
      <link rel="stylesheet" href="<?php echo asset_url(); ?>css/persian-datepicker.css" />
      <script src=" <?php echo asset_url().'js/jquery-1.11.1.min.js' ?>" ></script>
+     <script src=" <?php echo asset_url().'js/bootstrap.min.js' ?>" ></script>
      <script src=" <?php echo asset_url().'js/grid.min.js' ?>" ></script>
      <script src=" <?php echo asset_url().'js/bootstrap-datepicker.min.js' ?>"></script>
      <script src=" <?php echo asset_url().'js/bootstrap-datepicker.fa.min.js' ?>"></script>
      <script src=" <?php echo asset_url().'js/fileinput.min.js' ?>"></script>
+     <script src=" <?php echo asset_url().'js/select2.min.js' ?>"></script>
      <script src=" <?php echo asset_url().'js/jquery.PrintArea.js' ?>"></script>
      <script src=" <?php echo asset_url().'js/persian-date.js' ?>" ></script>
      <script src=" <?php echo asset_url().'js/persian-datepicker.min.js' ?>" ></script>
@@ -69,6 +70,6 @@
     <div class="row gh-header-bar">
         <div class="col-sm-2"></div>
         <div class="gh-no-padding col-sm-4"><img src="<?php echo asset_url(); ?>images/img/logo.png"/></div>
-        <div class="col-sm-4"></div>
+        <div class="col-sm-6"></div>
     </div>
     

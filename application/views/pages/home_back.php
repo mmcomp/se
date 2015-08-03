@@ -1,3 +1,4 @@
+
 <div class="row" style="margin-top: 15px;">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
@@ -5,41 +6,34 @@
 
             <!--search box-->
             <div class="col-sm-4 gh-no-padding">
-                <form class="gh-search-form gh-border-radius" method="post" action="search.php">
-                    <div class="dropdown">
-                        <button class="btn btn-block dropdown-toggle gh-no-border gh-search-at" type="button" data-toggle="dropdown">انتخاب جستجو <span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">جستجوی پرواز</a></li>
-                            <li class="disabled"><a href="#">جستجوی هتل</a></li>
-                        </ul>
-                    </div>
+                <form class="gh-search-form gh-border-radius">
                     <div class="radio-inline" style="color: #fff;">
-                        <label><input type="radio" name="optradio" checked="">یک طرفه</label>
+                        <label><input type="radio" name="optradio">یک طرفه</label>
                     </div>
                     <div class="radio-inline" style="color: #fff;">
                         <label><input type="radio" name="optradio">دو طرفه</label>
                     </div>
                     <br>
                     <div class="form-group">
-                        <select class="form-control gh-city" id="sel1" name="from_city">
-                            <option value="">شهر</option>
-                            <?php echo city_class::loadAll(); ?>
+                        <select class="form-control" id="sel1">
+                            <option>شهر</option>
+                            <option></option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <select class="form-control gh-city" id="sel1" name="to_city">
-                            <option value="">شهر</option>
-                            <?php echo city_class::loadAll(); ?>
+                        <select class="form-control" id="sel1">
+                            <option>شهر</option>
+                            <option></option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="aztarikh" class="form-control dateValue2" id="aztarikh" placeholder="از تاریخ">
+                        <input type="text" class="form-control dateValue2" placeholder="از تاریخ">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="tatarikh" class="form-control dateValue2" id="tatarikh" placeholder="تا تاریخ">
+                        <input type="text" class="form-control dateValue2" placeholder="تا تاریخ">
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-block btn-success" style="font-size: 18px;">جستجو</button>
+                        <button type="submit" class="btn btn-block btn-success">جستجو</button>
                     </div>
                 </form>
             </div>
@@ -53,13 +47,13 @@
     </div>
     <div class="col-sm-2"></div>
 </div>
-<div class="row" style="margin-top: 10px;">
+<div class="row" style="margin-top: 15px;">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
         <div class="row">
 
             <!--ads box-->
-            <div class="col-sm-4 gh-no-padding">
+            <div class="col-sm-4 gh-no-padding gh-ads-box">
                 <div class="gh-ads-header"><p>تبلیغات ویژه</p></div>
                 <div class="gh-ads-body">
                     <div class="gh-ads-img">

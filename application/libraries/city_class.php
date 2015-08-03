@@ -15,10 +15,10 @@
         {
             $out = "";
             $my = new mysql_class;
-            $my->ex_sql("select iata,name from city order by name", $q);
+            $my->ex_sql("select iata,name,en_name from city where iata <> '' order by name", $q);
             foreach($q as $r)
             {
-                $out .= "<option value='".$r['iata']."'>".$r['name']."</option>";
+                $out .= "<option value='".$r['iata']."'>".$r['name'].'/'.$r['en_name'].'/'.$r['iata']."</option>";
             }
             return($out);
         }

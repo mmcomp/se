@@ -3,15 +3,7 @@
     {
         public static function fixDate($inp)
         {
-            $tmp = explode("/", $inp);
-            $y = ((int)$tmp[0]>(int)$tmp[2])?(int)$tmp[0]:(int)$tmp[2];
-            $m = (int)$tmp[1];
-            $d = ((int)$tmp[0]>(int)$tmp[2])?(int)$tmp[2]:(int)$tmp[0];
-            $y = (($y<100)?'1300':'')."$y";
-            $m = (($m<10)?'0':'')."$m";
-            $d = (($m<10)?'0':'')."$d";
-            $out = $y.'-'.$m.'-'.$d;
-            return($out);
+            return($inp);
         }
         public static function search($aztarikh,$tatarikh,$from_city,$to_city,$extra)
         {   
