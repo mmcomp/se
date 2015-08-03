@@ -41,6 +41,7 @@
      <link rel="stylesheet" href="<?php echo asset_url(); ?>css/bootstrap.min.css" type="text/css" />
      <link rel="stylesheet" href="<?php echo asset_url(); ?>css/bootstrap-rtl.min.css" type="text/css" />
      <link rel="stylesheet" href="<?php echo asset_url(); ?>css/crm.css" type="text/css" />
+     <link rel="stylesheet" href="<?php echo asset_url(); ?>css/stylesheet.css" type="text/css" />
      <link rel="stylesheet" href="<?php echo asset_url(); ?>css/font-awesome.min.css" type="text/css" />
      <link rel="stylesheet" href="<?php echo asset_url(); ?>css/bootstrap-select.min.css" type="text/css" />
      <link rel="stylesheet" href="<?php echo asset_url(); ?>css/select2.css" type="text/css" />
@@ -48,12 +49,15 @@
      <link rel="stylesheet" href="<?php echo asset_url(); ?>css/fileinput.min.css" type="text/css" />
      <!--<link rel="stylesheet" href="<?php echo asset_url(); ?>css/bootstrap.min.css" />-->
      <link rel="stylesheet" href="<?php echo asset_url(); ?>css/bootstrap-datepicker.min.css" />
+     <link rel="stylesheet" href="<?php echo asset_url(); ?>css/persian-datepicker.css" />
      <script src=" <?php echo asset_url().'js/jquery-1.11.1.min.js' ?>" ></script>
      <script src=" <?php echo asset_url().'js/grid.min.js' ?>" ></script>
      <script src=" <?php echo asset_url().'js/bootstrap-datepicker.min.js' ?>"></script>
      <script src=" <?php echo asset_url().'js/bootstrap-datepicker.fa.min.js' ?>"></script>
      <script src=" <?php echo asset_url().'js/fileinput.min.js' ?>"></script>
      <script src=" <?php echo asset_url().'js/jquery.PrintArea.js' ?>"></script>
+     <script src=" <?php echo asset_url().'js/persian-date.js' ?>" ></script>
+     <script src=" <?php echo asset_url().'js/persian-datepicker.min.js' ?>" ></script>
     <?php
         if(isset($has_ckeditor) && $has_ckeditor) // if in edit_content ckedotr is activeted
         {    
@@ -62,10 +66,9 @@
     ?>
 </head>
 <body>
-    <div class="row" style="background-color: #34363d;">
-        <div class="col-sm-2">
-        </div>
-        <div class="col-sm-1" style="padding: 0px;">
-            <img src="<?php echo asset_url(); ?>images/img/logo.png" />
-        </div>
+    <div class="row gh-header-bar">
+        <div class="col-sm-2"></div>
+        <div class="gh-no-padding col-sm-4"><img src="<?php echo asset_url(); ?>images/img/logo.png"/></div>
+        <div class="col-sm-4"></div>
     </div>
+    

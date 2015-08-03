@@ -1,54 +1,115 @@
-<?php
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
-?>
-<!--search and slideshow-->
-<div class="gh-search_slideshow">
-    <div class="gh-search_slideshow-right gh-border-radius">
-        <div class="gh-search-box gh-border-radius">
-            <div class="gh-search-box-title">
-                <ul>
-                    <li><a href="#">جستجوی پرواز</a></li>
-                    <li><a href="#">جستجوی هتل</a></li>
-                </ul>
+
+<div class="row" style="margin-top: 15px;">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <div class="row">
+
+            <!--search box-->
+            <div class="col-sm-4 gh-no-padding">
+                <form class="gh-search-form gh-border-radius">
+                    <div class="radio-inline" style="color: #fff;">
+                        <label><input type="radio" name="optradio">یک طرفه</label>
+                    </div>
+                    <div class="radio-inline" style="color: #fff;">
+                        <label><input type="radio" name="optradio">دو طرفه</label>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <select class="form-control" id="sel1">
+                            <option>شهر</option>
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="sel1">
+                            <option>شهر</option>
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control dateValue2" placeholder="از تاریخ">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control dateValue2" placeholder="تا تاریخ">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-block btn-success">جستجو</button>
+                    </div>
+                </form>
             </div>
-            <form method="post" action="<?php echo site_url(); ?>search">
-                <input type="radio" name="way" value="one-way" checked>یک طرفه
-                <input type="radio" name="way" value="two-ways">دو طرفه
-                <span>مبدا <select name="from_city">
-                        <option value="">شهر</option>
-                        <?php echo city_class::loadAll(); ?>
-                    </select></span>
-                <span>مقصد <select name="to city">
-                        <option value="">شهر</option>
-                        <?php echo city_class::loadAll(); ?>
-                    </select></span>
-                <span>از تاریخ<input class="dateValue2" type="text" name="aztarikh"></span>
-                <span>تا تاریخ<input class="dateValue2" type="text" name="tatarikh"></span>
-                <span><input type="submit" value="جستجو"></span>
-            </form>
+            <!--search box-->
+
+            <!--slide show-->
+            <div class="col-sm-8 gh-slideshow hidden-xs"><img class="img-responsive gh-border-radius" src="<?php echo asset_url(); ?>images/img/slideshow.png"></div>
+            <!--slide show-->
+
         </div>
     </div>
-    <div class="gh-search_slideshow-left"><img class="gh-border-radius" src="<?php echo asset_url(); ?>images/img/slideshow1.png"></div>
+    <div class="col-sm-2"></div>
 </div>
-<!--middle-->
-<div class="gh-middle">
-    <div class="gh-middle-right gh-border-radius">
-        <header>تبلیغات ویژه</header>
-        <ul>
-            <li><a href="#"><img src="<?php echo asset_url(); ?>images/img/ads1.png"></a></li>
-            <li><a href="#"><img src="<?php echo asset_url(); ?>images/img/ads2.png"></a></li>
-            <li><a href="#"><img src="<?php echo asset_url(); ?>images/img/ads3.png"></a></li>
-        </ul>
-    </div>
-    <div class="gh-middle-left">
-        <div class="gh-middle-left-row">
-            <div class="gh-right"><img src="<?php echo asset_url(); ?>images/img/outside-tour.png"><p>تورهای خارجی </p><a href="#">مشاهده جزئیات ...</a></div>
-            <div class="gh-left"><img src="<?php echo asset_url(); ?>images/img/outside-hotel.png"><p>هتل های خارجی</p><a href="#">مشاهده جزئیات ...</a></div>
-        </div>
-        <div class="gh-middle-left-row">
-            <div class="gh-right"><img src="<?php echo asset_url(); ?>images/img/inside-tour.png"><p>تورهای داخلی </p><a href="#">مشاهده جزئیات ...</a></div>
-            <div class="gh-left"><img src="<?php echo asset_url(); ?>images/img/inside-hotel.png"><p>هتل های داخلی </p><a href="#">مشاهده جزئیات ...</a></div>
+<div class="row" style="margin-top: 15px;">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <div class="row">
+
+            <!--ads box-->
+            <div class="col-sm-4 gh-no-padding gh-ads-box">
+                <div class="gh-ads-header"><p>تبلیغات ویژه</p></div>
+                <div class="gh-ads-body">
+                    <div class="gh-ads-img">
+                        <img class="img-responsive" src="<?php echo asset_url(); ?>images/img/ads1.png">
+                    </div>
+                    <div class="gh-ads-img">
+                        <img class="img-responsive" src="<?php echo asset_url(); ?>images/img/ads2.png">
+                    </div>
+                    <div class="gh-ads-img">
+                        <img class="img-responsive" src="<?php echo asset_url(); ?>images/img/ads3.png">
+                    </div>
+                </div>
+            </div>
+            <!--ads box-->
+
+            <!--WTF box-->
+            <div class="col-sm-8 gh-wtf-box">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="thumbnail">
+                            <img src="<?php echo asset_url(); ?>images/img/place2.png">
+                            <span>هتلهای خارجی
+                                <a href="#">جزئیات بیشتر</a>
+                            </span> 
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="thumbnail">
+                            <img src="<?php echo asset_url(); ?>images/img/hotel2.png">
+                            <span>هتلهای خارجی
+                                <a href="#">جزئیات بیشتر</a>
+                            </span> 
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="thumbnail">
+                            <img src="<?php echo asset_url(); ?>images/img/place1.png">
+                            <span>هتلهای خارجی
+                                <a href="#">جزئیات بیشتر</a>
+                            </span> 
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="thumbnail">
+                            <img src="<?php echo asset_url(); ?>images/img/hotel1.png">
+                            <span>هتلهای خارجی
+                                <a href="#">جزئیات بیشتر</a>
+                            </span> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--WTF box-->
+
         </div>
     </div>
 </div>
