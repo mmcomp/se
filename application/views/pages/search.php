@@ -1,4 +1,4 @@
-<?php 
+<?php
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 if (!isset($_REQUEST['aztarikh']) || !isset($_REQUEST['tatarikh']) || !isset($_REQUEST['from_city']) || !isset($_REQUEST['to_city'])) {
@@ -33,7 +33,7 @@ $results = array();
 if ($aztarikh != '' && $tatarikh != '' && $from_city != '' && $to_city != '') {
     $results_tmp = search_class::search($aztarikh, $tatarikh, $from_city, $to_city, $extra);
     $results = $results_tmp["data"];
-    $flight_results = "<div style='padding:10px; color:red;font-size:18px; font-family:yekan;'>" .'نتیجه ای یافت نشد.'. "</div>";
+    $flight_results = "<div style='padding:10px; color:red;font-size:18px; font-family:yekan;'>" . 'نتیجه ای یافت نشد.' . "</div>";
     if (count($results) > 0) {
         $flight_results = 0;
     }
@@ -51,30 +51,32 @@ if ($aztarikh != '' && $tatarikh != '' && $from_city != '' && $to_city != '') {
 } else {
     $flight_results = "<div style='padding:10px; color:red;font-size:18px; font-family:yekan;'>" . 'لطفا مقادیر را برای جستجو کامل وارد کنید.' . "</div>";
 }
-?>
-<div class="row" style="margin-top: 15px;">
-    <div class="col-sm-2"></div>
-    <div class="col-sm-8 gh-sp-header gh-border-radius">
-        <div class="row">
-            <div class="col-sm-8">
-                <table>
-                    <tr>
-                        <td class="gh-src-des"><?php echo $from_city; ?></td>
-                        <td><img src="<?php echo asset_url(); ?>images/img/left-small.png"></td>
-                        <td class="gh-src-des"><?php echo $to_city; ?></td>
-                    </tr>
-                    <tr>
-                        <td class="gh-date">94/11/27</td>
-                        <td><img src="<?php echo asset_url(); ?>images/img/dash.png"></td>
-                        <td class="gh-date">94/11/28</td>
-                    </tr>
-                </table>
+?>]
+<div class="container">
+    <div class="row" style="margin-top: 15px;">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 gh-sp-header gh-border-radius">
+            <div class="row">
+                <div class="col-sm-8">
+                    <table>
+                        <tr>
+                            <td class="gh-src-des"><?php echo $from_city; ?></td>
+                            <td><img src="<?php echo asset_url(); ?>images/img/left-small.png"></td>
+                            <td class="gh-src-des"><?php echo $to_city; ?></td>
+                        </tr>
+                        <tr>
+                            <td class="gh-date">94/11/27</td>
+                            <td><img src="<?php echo asset_url(); ?>images/img/dash.png"></td>
+                            <td class="gh-date">94/11/28</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3 gh-sp-home"><a href="<?php echo site_url(); ?>">جستجوی مجدد</a></div>
             </div>
-            <div class="col-sm-1"></div>
-            <div class="col-sm-3 gh-sp-home"><a href="<?php echo site_url(); ?>">جستجوی مجدد</a></div>
         </div>
+        <div class="col-sm-2"></div>
     </div>
-    <div class="col-sm-2"></div>
 </div>
 
 <div class="row"style="margin-top: 15px; padding: 5px;">
@@ -116,7 +118,7 @@ if ($aztarikh != '' && $tatarikh != '' && $from_city != '' && $to_city != '') {
                             <li>ماهان<input type="checkbox"></li>
                             <li>تابان<input type="checkbox"></li>
                             <li>زاگرس<input type="checkbox"></li>
-                             <li>آتا<input type="checkbox"></li>
+                            <li>آتا<input type="checkbox"></li>
                         </ul>
                     </div>
                 </div>

@@ -6,6 +6,9 @@
     font-family: koodak;
     src: url(../fonts/Koodak-Bold.ttf);
 }
+.row {
+    overflow-x: hidden;
+}
 .gh-test {
     background-color: red;
 }
