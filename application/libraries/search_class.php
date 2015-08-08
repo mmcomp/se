@@ -5,7 +5,7 @@
         {
             return($inp);
         }
-        public static function search($aztarikh,$tatarikh,$from_city,$to_city,$extra)
+        public static function search($aztarikh,$tatarikh,$from_city,$to_city,$extra,$airlines,$sort,$way)
         {   
             $out = array("err"=>array("code"=>"1","msg"=>"Unknown ERROR"),"data"=>array());
             $param = array();
@@ -31,6 +31,22 @@
                 $param['from_city'] = $from_city;
                 $param['to_city'] = $to_city;
             }
+            if(count($airlines)>0)
+            {
+                $param['extra'] = 'extra';
+                $airs = array();
+                foreach ($airlines as $airline)
+                {
+                    $tmp = explode("|", $airline);
+                    foreach($tmp as $tt)
+                    {
+                        $airs[] = $tt;
+                    }
+                }
+                $param['airline'] = $airs;
+            }
+            $param['sort'] = $sort;
+            $param['way'] = $way;
             /*
             else
             {

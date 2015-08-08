@@ -32,13 +32,13 @@ class Pages extends CI_Controller {
         $conf = new conf;
         $meta = array(
             array('name' => 'robots', 'content' => 'no-cache'),
-            array('name' => 'description', 'content' => 'سامانه ارتباط به مشتریان شرگت گوهر'),
+            array('name' => 'description', 'content' => 'TicketYab'),
             array('name' => 'keywords', 'content' => ''),
             array('name' => 'robots', 'content' => 'no-cache'),
             array('name' => 'Content-type', 'content' => 'text/html; charset=utf-8', 'type' => 'equiv')
         );
         $data['meta'] = $meta;
-        $data['title'] = 'سامانه ارتباط با مشتریان';
+        $data['title'] = 'TicketYab';
         $data['page_addr'] = $page;
         $data['is_logged'] =isset($_SESSION[$conf->app.'_user_id']);
         $this->load->view('templates/header', $data);
@@ -63,7 +63,7 @@ class Pages extends CI_Controller {
         $data['title']='login';
         $meta = array(
             array('name' => 'robots', 'content' => 'no-cache'),
-            array('name' => 'description', 'content' => 'سامانه ارتباط به مشتریان شرگت گوهر'),
+            array('name' => 'description', 'content' => 'TicketYab'),
             array('name' => 'keywords', 'content' => ''),
             array('name' => 'robots', 'content' => 'no-cache'),
             array('name' => 'Content-type', 'content' => 'text/html; charset=utf-8', 'type' => 'equiv')

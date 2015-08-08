@@ -100,22 +100,72 @@
         },
         autoClose : true
     });
+    
     $('.gh-city').select2({
         dir: "rtl"
-    }).on("select2-selecting",function(){
-        console.log('a');
-        /*
-        $('.select2-search').on("keydown", function(e) {
-            console.log(e.keyCode);
-        });
-        */
     });
+    
+    //$('.gh-city').chosen();
     /*
      $(".dateValue2").datepicker({
      numberOfMonths: 2,
      showButtonPanel: true
      });
      */
+    $(".gh-air-list input:checkbox").each(function(id,field){
+        $(field).click(function(){
+            searchAgain($(this));
+        });
+    });
+    function sortFlight()
+    {
+        searchAgain();
+    }
+    var loading_img = '<img class="mm-loading" src="<?php echo asset_url(); ?>images/img/loading.gif" />';
+    function searchAgain()
+    {
+        $(".mm-loading").remove();
+        var airlines = [];
+        var loadAirline;
+        var field;
+        $(".gh-air-list input:checkbox").each(function(id,field){
+            if($(field).prop('checked'))
+            {
+                //console.log($(field).val());
+                airlines.push($(field).val());
+                loadAirline = $(field);
+            }
+        });
+        if(!loadAirline)
+        {
+            loadAirline = $(field);
+        }
+        var sort = $(".mm-sort-type").val();
+        $(".mm-sort-type").after(loading_img);
+        loadAirline.after(loading_img);
+        //if(airlines.length>0)
+        {
+            var p ={
+                'airlines':airlines,
+                'aztarikh' : aztarikh,
+                'tatarikh' : tatarikh,
+                'from_city' : from_city,
+                'to_city' : to_city,
+                'way' : way,
+                'isajax' : true,
+                'sort' : sort
+            };
+            
+            $.get('<?php echo site_url(); ?>search',p,function(res){
+                //console.log(res);
+                $(".mm-res-ha").html(res);
+                $(".mm-loading").remove();
+            }).fail(function(){
+                $(".mm-loading").remove();
+                alert('خطا در ارتباط با سرور');
+            });
+        }
+    }
 </script>
 </body>
 </html>

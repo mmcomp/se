@@ -35,6 +35,7 @@
         <link rel="stylesheet" href="<?php echo asset_url(); ?>css/font-awesome.min.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo asset_url(); ?>css/bootstrap-select.min.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo asset_url(); ?>css/select2.css" type="text/css" />
+        <!--<link rel="stylesheet" href="<?php echo asset_url(); ?>css/chosen.css" type="text/css" />-->
         <link rel="stylesheet" href="<?php echo asset_url(); ?>css/xgrid.min.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo asset_url(); ?>css/fileinput.min.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo asset_url(); ?>css/bootstrap-datepicker.min.css" />
@@ -46,6 +47,7 @@
         <script src=" <?php echo asset_url() . 'js/bootstrap-datepicker.fa.min.js' ?>"></script>
         <script src=" <?php echo asset_url() . 'js/fileinput.min.js' ?>"></script>
         <script src=" <?php echo asset_url() . 'js/select2.min.js' ?>"></script>
+        <!--<script src=" <?php echo asset_url() . 'js/chosen.jquery.js' ?>"></script>-->
         <script src=" <?php echo asset_url() . 'js/jquery.PrintArea.js' ?>"></script>
         <script src=" <?php echo asset_url() . 'js/persian-date.js' ?>" ></script>
         <script src=" <?php echo asset_url() . 'js/persian-datepicker.min.js' ?>" ></script>

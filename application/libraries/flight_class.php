@@ -15,22 +15,46 @@ class flight_class {
             if ($load === TRUE) {
                 $werc = array();
                 foreach ($param as $key => $value) {
-                    if ($key != 'aztarikh' && $key != 'tatarikh' && $key != 'extra') {
+                    if ($key != 'aztarikh' && $key != 'tatarikh' && $key != 'extra' && $key !='airline' && $key != 'sort' && $key != 'way' && $key != 'from_city' && $key != 'to_city') {
                         $werc[] = " `$key` = '$value' ";
-                    } else if ($key == 'aztarikh') {
+                    } 
+                    else if ($key == 'aztarikh') {
                         $werc[] = " `fdate` >= '$value' ";
-                    } else if ($key == 'tatarikh') {
+                    } 
+                    else if ($key == 'tatarikh') {
                         $werc[] = " `fdate` <= '$value' ";
                     }
+                    else if ($key == 'airline')
+                    {
+                        $werc[] = " `airline` in ('".  implode("','", $value)."') ";
+                    }
+                    else if($key == 'way')
+                    {
+                        if($param['way'] == 'one')
+                        {
+                            $werc[] = " `from_city` = '".$param['from_city']."' and `to_city` = '".$param['to_city']."' and `typ` <> 2 ";
+                        }
+                        else if($param['way'] == 'two' && $param['to_city']!='' && $param['from_city']!='')
+                        {
+                            $werc[] = "(( `from_city` = '".$param['to_city']."' and `to_city` = '".$param['from_city']."') or (`from_city` = '".$param['from_city']."' and `to_city` = '".$param['to_city']."'))";
+                        }
+                    }
                 }
-                $query = "select * from flight " . ((count($werc) > 0) ? " where " . implode(" and ", $werc) : "");
+                $sort = '';
+                if($param['sort']!='all')
+                {
+                    $sort = ' order by '.$param['sort'];
+                }
+                $query = "select * from flight " . ((count($werc) > 0) ? " where " . implode(" and ", $werc) : "").$sort;
                 if (isset($param['extra'])) {
                     $fields = "`agency_id`, `from_city`, `to_city`, `flight_number`, `flight_id`, `fdate`, `ftime`, `typ` , `capacity`, `class_ghimat`, `class`";
-                    $fields_extra = "`airline`, `airplane`, `description`, `extra`, `excurrency`, `extrad`, `price`, `currency`, `public`, `poursant`, `day`, `add_price`, `tax`, `taxd`, `no_public`, `open_price`, `open_price_currency`, `open_price`";
-                    $query = "select `flight`.`id`,$fields,$fields_extra,`logo_url` from `flight` left join `flight_extra` on (`flight`.`id`=`flight_extra`.`id`) left join `airline` on (`airline`.`name` = `flight_extra`.`airline`) " . ((count($werc) > 0) ? " where " . implode(" and ", $werc) : "");
+                    $fields_extra = "`airline`, `airplane`, `description`, `extra`, `excurrency`, `extrad`, `price`, `currency`, `public`, `poursant`, `day`, `add_price`, `tax`, `taxd`, `no_public`, `open_price`, `open_price_currency`, `open_price`,`agency_site`,`bfid`,`target_capa`";
+                    $query = "select `flight`.`id`,$fields,$fields_extra,`logo_url` from `flight` left join `flight_extra` on (`flight`.`id`=`flight_extra`.`id`) left join `airline` on (`airline`.`name` = `flight_extra`.`airline`) " . ((count($werc) > 0) ? " where " . implode(" and ", $werc) : "").$sort;
                 }
+                //echo $query;
                 $res = $this->my->query($query);
                 while ($r = $res->fetch_assoc()) {
+                    $r['price'] = (int)((int)$r['price']/10);
                     $this->data[] = $r;
                 }
             }
