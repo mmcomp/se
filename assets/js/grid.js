@@ -406,6 +406,7 @@ function jshowGrid(indata,gname,targetFile)
 	}
 	this.createSearchBox = function ()
 	{
+            console.log('createSearchBox');
 		gname = this.gname;
 		var cols = this.column;
 		var out = '<table ><tr>';
@@ -427,6 +428,7 @@ function jshowGrid(indata,gname,targetFile)
 					tagname = '<select class="grid_search_'+gname+'" id="';
 					tagend = '"><option value="-1">'+cols[i-1].name+'</option>';
 					var columns = cols[i-1].searchDetails;
+                                    console.log(columns);
 					for(j in columns)
 						tagend += '<option value="'+j+'" >'+columns[j]+'</option>';
 					tagend += '</select>';

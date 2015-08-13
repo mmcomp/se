@@ -1,41 +1,29 @@
 <!--footer-->
 <div class="container-fluid">
-    <div class="row gh-footer-bar hidden-xs hidden-sm" style="margin-top: 15px;">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-8">
-            <div class="row">
-                <div class="col-sm-1"></div>
-                <div class="col-sm-10">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-sm-4 gh-gmap pull-right">
-                                <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=fa"></script>
-                                <script src="http://kharido.ir/OtherPage/GoogleMapsInYourSite.js.aspx?idObjectMap=62374" type="text/javascript"></script> 
-                                <div id="map_canvas" style="padding: 70px 120px; border: 1px solid #42d3dc"></div>
-                            </div>
-                            <div class="gh-con-us pull-left">
-                                Tel : (+9851) 3855 91 29-31
-                                <br>
-                                Reservation : 0915 822 6800
-                                <br>
-                                Fax : (+9851) 3342 77 17
-                                <br>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-1"></div>
-            </div>
+    <div class="row gh-footer-bar hidden-xs hidden-sm">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3 gh-gmap" style=" text-align: center;">
+            <img src="<?php echo asset_url(); ?>images/img/add.png" style="position: absolute; margin-top: -30px; margin-right: -10px; z-index: 10;">
+            <div id="map_canvas1" style="padding: 70px 120px; border: 1px solid #42d3dc;"></div>
         </div>
-        <div class="col-sm-2"></div>
+        <div class="gh-con-us col-sm-3">
+            <img src="<?php echo asset_url(); ?>images/img/tell.png" style="position: absolute; margin-top: -40px; margin-right: 90px;">
+            Tel : (+9851) 3855 91 29-31
+            <br>
+            Reservation : 0915 822 6800
+            <br>
+            Fax : (+9851) 3342 77 17
+            <br>
+        </div>
+        <div class="col-sm-3"></div>
     </div>
 </div>
 <div class="gh-footer-bar-mob visible-xs visible-sm">
     <div class="container-fluid">
         <div class="row gh-footer-bar">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8"> 
-                <div class="gh-con-us-mob pull-left">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <div class="gh-con-us-mob">
                     Tel : (+9851) 3855 91 29-31
                     <br>
                     Reservation : 0915 822 6800
@@ -44,67 +32,88 @@
                     <br>
                 </div>
             </div>
-            <div class="col-sm-2"></div>
-        </div>
-    </div>
-    <div class="container-fluid">
-        <div class="row gh-footer-bar">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8"> 
-                <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=fa"></script>
-                <script src="http://kharido.ir/OtherPage/GoogleMapsInYourSite.js.aspx?idObjectMap=62379" type="text/javascript"></script>  
-                <div id="map_canvas" style="display: block; width: 100%; padding: 50px 0; border: 1px solid #42d3dc;"></div>
-            </div>
-            <div class="col-sm-2"></div>
+            <div class="col-sm-3"></div>
         </div>
     </div>
 </div>
 <!--footer-->
+<!--sub-footer-->
+<div class="container-fluid" style="background-color: #f4f4f4; text-align: center; padding: 5px; font-family: tahoma; font-size: 15px;">
+    Copyright 2015 Gohar Group - All rights reserved
+</div>
+<!--sub-footer-->
+
 <script>
     var tat = '<input type="text" name="tatarikh" class="form-control" id="tatarikh" placeholder="تا تاریخ">';
     var aztarikhLimit;
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        var initLat = 36.3278668291708;
+        var initLng = 59.4744628295302;
+        var initZoom = 16;
+        var initidObjectMap = 62374;
+        function initialize1() {
+            var latlng = new google.maps.LatLng(initLat, initLng);
+            var myOptions = {zoom: initZoom, center: latlng, mapTypeId: google.maps.MapTypeId.ROADMAP};
+            var map = new google.maps.Map(document.getElementById("map_canvas1"), myOptions);
+            marker = new google.maps.Marker({position: latlng, map: map, draggable: false});
+        }
+        function initialize2() {
+            var latlng = new google.maps.LatLng(initLat, initLng);
+            var myOptions = {zoom: initZoom, center: latlng, mapTypeId: google.maps.MapTypeId.ROADMAP};
+            var map = new google.maps.Map(document.getElementById("map_canvas2"), myOptions);
+            marker = new google.maps.Marker({position: latlng, map: map, draggable: false});
+        }
+        initialize1();
+        initialize2();
+    });
     $(".dateValue2").pDatepicker({
         format: "YYYY-MM-DD",
         maxDate: <?php echo strtotime(date("Y-m-d") . ' - 1 day') . '000'; ?>,
-        altFieldFormatter : function(ff){
+        altFieldFormatter: function (ff) {
             var obj = $(this.inputElem[0]);
-            if(obj.prop('id')==='aztarikh')
+            if (obj.prop('id') === 'aztarikh')
             {
                 aztarikhLimit = ff;
-                                
+
             }
         },
-        onSelect : function(){
+        onSelect: function () {
             var obj = $(this.inputElem[0]);
-            if(obj.prop('id')==='aztarikh')
+            if (obj.prop('id') === 'aztarikh')
             {
                 $("#tatarikh").remove();
-                obj.parent().next().append(tat);
+                //obj.parent().next().append(tat);
+                $("#tatarikh-td").append(tat);
                 $("#tatarikh").pDatepicker({
                     format: "YYYY-MM-DD",
                     maxDate: aztarikhLimit,
-                    minDate : 0,
+                    minDate: 0,
                     timePicker: {
                         enabled: false
                     },
-                    autoClose : true
+                    autoClose: true
                 });
                 var azta = $("#aztarikh").val().split('-');
-                $("#tatarikh").pDatepicker("setDate",[parseInt(azta[0],10),parseInt(azta[1],10),parseInt(azta[2],10),0,0]);
+                $("#tatarikh").pDatepicker("setDate", [parseInt(azta[0], 10), parseInt(azta[1], 10), parseInt(azta[2], 10), 0, 0]);
             }
-            
+
         },
         minDate: 0,
         timePicker: {
             enabled: false
         },
-        autoClose : true
+        autoClose: true
     });
-    
-    $('.gh-city').select2({
-        dir: "rtl"
+
+    $('#sel1').select2({
+        dir: "rtl",
+        placeholder: "مبدا"
     });
-    
+    $('#sel2').select2({
+        dir: "rtl",
+        placeholder: "مقصد"
+    });
     //$('.gh-city').chosen();
     /*
      $(".dateValue2").datepicker({
@@ -112,8 +121,8 @@
      showButtonPanel: true
      });
      */
-    $(".gh-air-list input:checkbox").each(function(id,field){
-        $(field).click(function(){
+    $(".gh-air-list input:checkbox").each(function (id, field) {
+        $(field).click(function () {
             searchAgain($(this));
         });
     });
@@ -128,15 +137,15 @@
         var airlines = [];
         var loadAirline;
         var field;
-        $(".gh-air-list input:checkbox").each(function(id,field){
-            if($(field).prop('checked'))
+        $(".gh-air-list input:checkbox").each(function (id, field) {
+            if ($(field).prop('checked'))
             {
                 //console.log($(field).val());
                 airlines.push($(field).val());
                 loadAirline = $(field);
             }
         });
-        if(!loadAirline)
+        if (!loadAirline)
         {
             loadAirline = $(field);
         }
@@ -145,26 +154,70 @@
         loadAirline.after(loading_img);
         //if(airlines.length>0)
         {
-            var p ={
-                'airlines':airlines,
-                'aztarikh' : aztarikh,
-                'tatarikh' : tatarikh,
-                'from_city' : from_city,
-                'to_city' : to_city,
-                'way' : way,
-                'isajax' : true,
-                'sort' : sort
+            var p = {
+                'airlines': airlines,
+                'aztarikh': aztarikh,
+                'tatarikh': tatarikh,
+                'from_city': from_city,
+                'to_city': to_city,
+                'way': way,
+                'isajax': true,
+                'sort': sort
             };
-            
-            $.get('<?php echo site_url(); ?>search',p,function(res){
+
+            $.get('<?php echo site_url(); ?>search', p, function (res) {
                 //console.log(res);
                 $(".mm-res-ha").html(res);
                 $(".mm-loading").remove();
-            }).fail(function(){
+            }).fail(function () {
                 $(".mm-loading").remove();
                 alert('خطا در ارتباط با سرور');
             });
         }
+    }
+    var fareIndex = 0;
+    function backFare()
+    {
+        if (fareIndex > 0)
+        {
+            fareIndex--;
+            loadFare();
+        }
+    }
+    function nextFare()
+    {
+        fareIndex++;
+        loadFare();
+    }
+    function loadFare()
+    {
+        var p = {
+            "dat": fareIndex
+        };
+        $.getJSON("<?php echo site_url(); ?>home", p, function (res) {
+            console.log(res);
+            var dat = res.data;
+            $("#tat").html(res.tarikh);
+            for (var i = 0; i < 8; i++)
+            {
+                if (dat[i])
+                {
+                    $("#fl_large_" + i).find("header").html(dat[i].from_city_small + ' - ' + dat[i].to_city_small);
+                    $("#fl_large_" + i).find("span").html(dat[i].price_monize + ' تومان');
+                    $("#fl_small_" + i).find("header").html(dat[i].from_city_small + ' - ' + dat[i].to_city_small);
+                    $("#fl_small_" + i).find("span").html(dat[i].price_monize + ' تومان');
+                    $("#fl_large_" + i).find("header").tooltip('hide').attr('data-original-title', dat[i].from_city_name + ' - ' + dat[i].to_city_name).tooltip();
+                    $("#fl_small_" + i).find("header").tooltip('hide').attr('data-original-title', dat[i].from_city_name + ' - ' + dat[i].to_city_name).tooltip();
+                }
+                else
+                {
+                    $("#fl_large_" + i).find("header").html('');
+                    $("#fl_large_" + i).find("span").html('');
+                    $("#fl_small_" + i).find("header").html('');
+                    $("#fl_small_" + i).find("span").html('');
+                }
+            }
+        });
     }
 </script>
 </body>

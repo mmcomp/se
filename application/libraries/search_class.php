@@ -5,6 +5,35 @@
         {
             return($inp);
         }
+        public static function loadLowFare($dat,$count=8)
+        {
+            function perToEnNums($inNum) {
+                $outp = $inNum;
+                $outp = str_replace('۰', '0', $outp);
+                $outp = str_replace('۱', '1', $outp);
+                $outp = str_replace('۲', '2', $outp);
+                $outp = str_replace('۳', '3', $outp);
+                $outp = str_replace('۴', '4', $outp);
+                $outp = str_replace('۵', '5', $outp);
+                $outp = str_replace('۶', '6', $outp);
+                $outp = str_replace('۷', '7', $outp);
+                $outp = str_replace('۸', '8', $outp);
+                $outp = str_replace('۹', '9', $outp);
+                return($outp);
+            }
+            $sign = ($dat < 0)?' - ': ' + ';
+            $dat = abs($dat);
+            $param['aztarikh'] = perToEnNums(jdate("Y-m-d",strtotime(date("Y-m-d").$sign.$dat.' day')));
+            $param['tatarikh'] = perToEnNums(jdate("Y-m-d",strtotime(date("Y-m-d").$sign.$dat.' day')));
+            $param['extra'] = '';
+            $param['sort'] = 'price';
+            $param['limit'] = $count;
+            $flight = new flight_class(TRUE,$param);
+            $out['data'] = $flight->data;
+            $out['err']['code'] = 0;
+            $out['err']['msg'] = '';
+            return($out);
+        }
         public static function search($aztarikh,$tatarikh,$from_city,$to_city,$extra,$airlines,$sort,$way)
         {   
             $out = array("err"=>array("code"=>"1","msg"=>"Unknown ERROR"),"data"=>array());
@@ -60,12 +89,5 @@
             $out['err']['code'] = 0;
             $out['err']['msg'] = '';
             return($out);
-        }
-        function test()
-        {
-            $query = "select * from city";
-            $my = new mysql_class;
-            $my->ex_sql($query, $q);
-            return($q);
         }
     }

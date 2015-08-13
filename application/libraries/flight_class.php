@@ -15,7 +15,7 @@ class flight_class {
             if ($load === TRUE) {
                 $werc = array();
                 foreach ($param as $key => $value) {
-                    if ($key != 'aztarikh' && $key != 'tatarikh' && $key != 'extra' && $key !='airline' && $key != 'sort' && $key != 'way' && $key != 'from_city' && $key != 'to_city') {
+                    if ($key != 'aztarikh' && $key != 'tatarikh' && $key != 'extra' && $key !='airline' && $key != 'sort' && $key != 'way' && $key != 'from_city' && $key != 'to_city' && $key != 'limit') {
                         $werc[] = " `$key` = '$value' ";
                     } 
                     else if ($key == 'aztarikh') {
@@ -45,11 +45,16 @@ class flight_class {
                 {
                     $sort = ' order by '.$param['sort'];
                 }
-                $query = "select * from flight " . ((count($werc) > 0) ? " where " . implode(" and ", $werc) : "").$sort;
+                $limit = '';
+                if(isset($param['limit']) && (int)$param['limit']>0)
+                {
+                    $limit = " limit ".(int)$param['limit'];
+                }
+                $query = "select * from flight " . ((count($werc) > 0) ? " where " . implode(" and ", $werc) : "").$sort.$limit;
                 if (isset($param['extra'])) {
                     $fields = "`agency_id`, `from_city`, `to_city`, `flight_number`, `flight_id`, `fdate`, `ftime`, `typ` , `capacity`, `class_ghimat`, `class`";
                     $fields_extra = "`airline`, `airplane`, `description`, `extra`, `excurrency`, `extrad`, `price`, `currency`, `public`, `poursant`, `day`, `add_price`, `tax`, `taxd`, `no_public`, `open_price`, `open_price_currency`, `open_price`,`agency_site`,`bfid`,`target_capa`";
-                    $query = "select `flight`.`id`,$fields,$fields_extra,`logo_url` from `flight` left join `flight_extra` on (`flight`.`id`=`flight_extra`.`id`) left join `airline` on (`airline`.`name` = `flight_extra`.`airline`) " . ((count($werc) > 0) ? " where " . implode(" and ", $werc) : "").$sort;
+                    $query = "select `flight`.`id`,$fields,$fields_extra,`logo_url` from `flight` left join `flight_extra` on (`flight`.`id`=`flight_extra`.`id`) left join `airline` on (`airline`.`name` = `flight_extra`.`airline`) where flight.en = 1  " .((count($werc)>0)?' and '. implode(" and ", $werc).' ':'').$sort.$limit;
                 }
                 //echo $query;
                 $res = $this->my->query($query);

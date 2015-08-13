@@ -34,7 +34,7 @@ $result_tmp = <<< RT
                         <td style="background-color: #f0f0f0;">
                             <p style="font-size: 18px;">#price# تومان</p>
                             <p><a target='_blank' href="#site#">انتخاب</a><br></p>
-                            <p style="font-size: 12px; color: #568fb9">#air_name#</p>
+                            <p style="font-size: 12px; color: #568fb9">#air_name##icon#</p>
                         </td>
                     </tr>
                 </table>
@@ -42,6 +42,17 @@ $result_tmp = <<< RT
         </div>
     </div>
 RT;
+$flight_types = array(
+    0 => "",
+    1 => "tell.gif",
+    2 => "tour.gif",
+    3 => "twoway.gif",
+    4 => "",
+    5 => "",
+    6 => "",
+    7 => "time.png",
+    8 => ""
+);
 $is_ajax = isset($_REQUEST['isajax']);
 $aztarikh = trim($_REQUEST['aztarikh']);
 $tatarikh = trim($_REQUEST['tatarikh']);
@@ -51,7 +62,7 @@ $way = trim($_REQUEST['way']);
 $extra = 'extra';
 $results = array();
 if ($aztarikh != '' && $tatarikh != '' && $from_city != '' && $to_city != '') {
-    $results_tmp = search_class::search($aztarikh, $tatarikh, $from_city, $to_city, $extra, isset($_REQUEST['airlines']) ? $_REQUEST['airlines'] : array(), isset($_REQUEST['sort']) ? $_REQUEST['sort'] : 'all',$way);
+    $results_tmp = search_class::search($aztarikh, $tatarikh, $from_city, $to_city, $extra, isset($_REQUEST['airlines']) ? $_REQUEST['airlines'] : array(), isset($_REQUEST['sort']) ? $_REQUEST['sort'] : 'all', $way);
     $results = $results_tmp["data"];
     $flight_results = "<div style='padding:10px; color:red;font-size:18px; font-family:yekan;'>" . 'نتیجه ای یافت نشد.' . "</div>";
     if (count($results) > 0) {
@@ -67,6 +78,8 @@ if ($aztarikh != '' && $tatarikh != '' && $from_city != '' && $to_city != '') {
         $res = str_replace("#air_name#", $flight['airline'], $res);
         $res = str_replace("#air_logo#", $flight['logo_url'], $res);
         $res = str_replace("#site#", $flight['agency_site'], $res);
+        $flight_typ = (isset($flight_types[$flight['typ']]) && $flight_types[$flight['typ']] != '') ? '<img style="padding-right:5px;" src="' . asset_url() . 'images/img/' . $flight_types[$flight['typ']] . '" />' : '';
+        $res = str_replace("#icon#", $flight_typ, $res);
         $flight_results .= $res;
     }
 } else {
@@ -76,36 +89,37 @@ if ($is_ajax) {
     die($flight_results);
 }
 ?>
-<div class="container">
-    <div class="row" style="margin-top: -10px;">
+<div class="container-fluid" style="margin-top: 10px;">
+    <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8 gh-sp-header gh-border-radius">
-            <div class="row">
-                <div class="col-sm-8">
-                    <table>
-                        <tr>
-                            <td class="gh-src-des"><?php echo city_class::loadByIata($from_city); ?></td>
-                            <td><img src="<?php echo asset_url(); ?>images/img/left-small.png"></td>
-                            <td class="gh-src-des"><?php echo city_class::loadByIata($to_city); ?></td>
-                        </tr>
-                        <tr>
-                            <td class="gh-date" style="font-size: 14px;"><?php echo $aztarikh; ?></td>
-                            <td><img src="<?php echo asset_url(); ?>images/img/dash.png"></td>
-                            <td class="gh-date" style="font-size: 14px;"><?php echo $tatarikh; ?></td>
-                        </tr>
-                    </table>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <table>
+                            <tr>
+                                <td class="gh-src-des"><?php echo city_class::loadByIata($from_city); ?></td>
+                                <td><img src="<?php echo asset_url(); ?>images/img/left-small.png"></td>
+                                <td class="gh-src-des"><?php echo city_class::loadByIata($to_city); ?></td>
+                            </tr>
+                            <tr>
+                                <td class="gh-date"><?php echo $aztarikh; ?></td>
+                                <td><img src="<?php echo asset_url(); ?>images/img/dash.png"></td>
+                                <td class="gh-date"><?php echo $tatarikh; ?></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-3 gh-sp-home"><a href="<?php echo site_url(); ?>">جستجوی مجدد </a></div>
                 </div>
-                <div class="col-sm-1"></div>
-                <div class="col-sm-3 gh-sp-home"><a href="<?php echo site_url(); ?>">جستجوی مجدد </a></div>
             </div>
         </div>
         <div class="col-sm-2"></div>
     </div>
 </div>
-<div class="container">
-    <div class="row"style="padding: 5px; margin-top: -10px;">
+<div class="container-fluid" style="margin: 10px 0;">
+    <div class="row">
         <div class="col-sm-2"></div>
-
         <div class="col-sm-2 gh-no-padding">
             <div class="gh-ads-body hidden-xs" style="border: none;">
                 <div class="gh-ads-img">
@@ -121,7 +135,6 @@ if ($is_ajax) {
         </div>
         <div class="gh-sp-body col-sm-6 gh-border-radius">
             <div class="row" style="padding: 5px;">
-
                 <!--search filter-->
                 <div class="col-sm-4">
                     <div class="row">
@@ -130,22 +143,22 @@ if ($is_ajax) {
                         </div>
                     </div>
                     <div class="row">
-                        <div data-toggle="collapse" data-target="#stops" class="gh-filter-header" style="margin-top: 10px;">توقف ها</div>
+                        <div data-toggle="collapse" data-target="#stops" class="gh-filter-header" style="margin-top: 5px;">توقف ها</div>
                     </div>
                     <div class="row">
                         <div id="stops" class="collapse in gh-flyght-mode">
-                            <ul>
-                                <li> پرواز مستقیم<input type="checkbox" name="optradio" checked></li>
+                            <ul style="margin: 0;">
+                                <li> پرواز مستقیم<input type="checkbox" name="optradio" checked disabled></li>
                                 <li>  یک توقف<input type="checkbox" name="optradio" disabled></li>
                             </ul>
                         </div>
                     </div>
                     <div class="row">
-                        <div data-toggle="collapse" data-target="#NULL1" class="gh-filter-header" style="margin-top: 10px;">زمان پرواز</div>
+                        <div data-toggle="collapse" data-target="#NULL1" class="gh-filter-header">زمان پرواز</div>
                     </div>
                     <div class="row"></div>
                     <div class="row">
-                        <div data-toggle="collapse" data-target="#al" class="gh-filter-header" style="margin-top: 10px;">نام ایرلاین</div>
+                        <div data-toggle="collapse" data-target="#al" class="gh-filter-header">نام ایرلاین</div>
                     </div>
                     <div class="row">
                         <div id="al" class="collapse in gh-air-list">
@@ -160,7 +173,6 @@ if ($is_ajax) {
                     </div>
                 </div>
                 <!--search filter-->
-
                 <!--search result-->
                 <div class="col-sm-8">
                     <div class="row" style="padding-right: 5px;">
@@ -180,11 +192,8 @@ if ($is_ajax) {
                     </div>
                 </div>
                 <!--search result-->
-
             </div>
         </div>
-
-
         <div class="col-sm-2"></div>
     </div>
 </div>

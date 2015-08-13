@@ -78,7 +78,7 @@ class Inc_model extends CI_Model {
         $nltmp = $ntmp;
         $count = mb_strlen($ntmp, 'UTF-8');
         if ($count > $t)
-            $nltmp = mb_substr($ntmp, 0, -$count + $t, 'UTF-8') . ' ...';
+            $nltmp = mb_substr($ntmp, 0, -$count + $t, 'UTF-8') . '_';
         return $nltmp;
     }
 
