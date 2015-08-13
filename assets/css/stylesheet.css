@@ -40,6 +40,8 @@ body {
 .gh-menu-large ul li {
     float: right;
     padding: 5px 0 5px 30px;
+    font-family: tahoma;
+    font-size: 15px;
 }
 .gh-menu-large ul li a {
     display: block;
@@ -160,9 +162,8 @@ body {
     color: #fff;
     font-family: tahoma;
     font-size: 14px;
-    padding: 10px;
-    padding: 6px 20px 6px 0;
     border-radius: 3px 3px 0 0;
+    padding: 5px 0 5px 0;
 }
 .gh-offer-cell span {
     display: block;

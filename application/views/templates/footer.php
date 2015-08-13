@@ -197,7 +197,7 @@
         $.getJSON("<?php echo site_url(); ?>home", p, function (res) {
             console.log(res);
             var dat = res.data;
-            $("#tat").html(res.tarikh);
+            $(".tat").html(res.tarikh);
             for (var i = 0; i < 8; i++)
             {
                 if (dat[i])

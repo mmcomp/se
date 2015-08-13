@@ -6,8 +6,8 @@ if (isset($_REQUEST['dat'])) {
 $result_fare = search_class::loadLowFare($dat);
 $results = $result_fare["data"];
 foreach ($results as $i => $res) {
-    $results[$i]['from_city_small'] = $this->inc_model->substrH(city_class::loadByIata($res['from_city']), 5);
-    $results[$i]['to_city_small'] = $this->inc_model->substrH(city_class::loadByIata($res['to_city']), 5);
+    $results[$i]['from_city_small'] = city_class::loadByIata($res['from_city']);//$this->inc_model->substrH(city_class::loadByIata($res['from_city']), 5);
+    $results[$i]['to_city_small'] = city_class::loadByIata($res['to_city']);//$this->inc_model->substrH(city_class::loadByIata($res['to_city']), 5);
     $results[$i]['from_city_name'] = city_class::loadByIata($res['from_city']);
     $results[$i]['to_city_name'] = city_class::loadByIata($res['to_city']);
     $results[$i]['price_monize'] = $this->inc_model->monize($res['price']);
@@ -84,39 +84,41 @@ if (isset($_REQUEST['dat'])) {
             <div class="tab-content">
                 <div id="flight-search-small" class="tab-pane fade in active">
                     <div class="form-group">
-                        <span style="padding: 10px;">یک طرفه<input  type="radio" name="way" value="one" checked=""> </span>
-                        <span style="padding: 10px;">دو طرفه<input type="radio" name="way" value=""></span>
-                        <table>
-                            <tr>
-                                <td>مبدا</td>
-                                <td id="tatarikh-td" style="width: 100%;">
-                                    <select style="width: 100%;" class="gh-city form-control" id="sel1" name="from_city" onchange="fn(this);">
-                                        <option value=""></option>
-                                        <?php echo city_class::loadAll(); ?>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>مقصد</td>
-                                <td id="tatarikh-td" style="width: 100%;">
-                                    <select style="width: 100%;" class="gh-city" id="sel2" name="to_city">
-                                        <option value=""></option>
-                                        <?php echo city_class::loadAll(); ?>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>از تاریخ</td>
-                                <td id="aztarikh-td" style="width: 100%;"><input type="text" name="aztarikh" class="form-control dateValue2" id="aztarikh" placeholder="از تاریخ"></td>
-                            </tr>
-                            <tr>
-                                <td>تا تاریخ</td>
-                                <td id="tatarikh-td" style="width: 100%;"><input type="text" name="tatarikh" class="form-control dateValue2" id="tatarikh" placeholder="تا تاریخ"></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"><button style="background-color: #baeb30; color: #4d5059; font-family: yekan; font-size: 20px;" type="submit" class="btn btn-block">جستجو</button></td>
-                            </tr>
-                        </table>
+                        <form method="post" action="search.php">
+                            <span style="padding: 10px;">یک طرفه<input  type="radio" name="way" value="one" checked=""> </span>
+                            <span style="padding: 10px;">دو طرفه<input type="radio" name="way" value=""></span>
+                            <table>
+                                <tr>
+                                    <td>مبدا</td>
+                                    <td id="tatarikh-td" style="width: 100%;">
+                                        <select style="width: 100%;" class="gh-city form-control" id="sel1" name="from_city" onchange="fn(this);">
+                                            <option value=""></option>
+                                            <?php echo city_class::loadAll(); ?>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>مقصد</td>
+                                    <td id="tatarikh-td" style="width: 100%;">
+                                        <select style="width: 100%;" class="gh-city" id="sel2" name="to_city">
+                                            <option value=""></option>
+                                            <?php echo city_class::loadAll(); ?>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>از تاریخ</td>
+                                    <td id="aztarikh-td" style="width: 100%;"><input type="text" name="aztarikh" class="form-control dateValue2" id="aztarikh" placeholder="از تاریخ"></td>
+                                </tr>
+                                <tr>
+                                    <td>تا تاریخ</td>
+                                    <td id="tatarikh-td" style="width: 100%;"><input type="text" name="tatarikh" class="form-control dateValue2" id="tatarikh" placeholder="تا تاریخ"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><button style="background-color: #baeb30; color: #4d5059; font-family: yekan; font-size: 20px;" type="submit" class="btn btn-block">جستجو</button></td>
+                                </tr>
+                            </table>
+                        </form>
                     </div>
                 </div>
                 <div id="hotel-search-small" class="tab-pane fade"></div>
@@ -159,7 +161,7 @@ if (isset($_REQUEST['dat'])) {
                         <div class="gh-offer-header">
                             <p>
                                 ارزان ترین نرخ در : 
-                                <span id="tat"><?php echo jdate("d-m-Y"); ?></span>
+                                <span class="tat"><?php echo jdate("d-m-Y"); ?></span>
                             </p>
                         </div>
                         <table>
@@ -257,102 +259,102 @@ if (isset($_REQUEST['dat'])) {
                 <!--wtf-box-->
             </div>
             <!--offer and wtf-lg-->
-
-            <!--offer and wtf-md-sm-xs-->
-            <div class="col-sm-8 visible-md visible-sm visible-xs">
-                <!--offer-->
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-12 gh-offer-box">
-                            <div class="gh-offer-header">
-                                <p>
-                                    ارزان ترین نرخ در : سه شنبه 20 مرداد 1393
-                                </p>
-                            </div>
-
-                            <table>
-                                <tr>
-                                    <td onclick="backFare();" rowspan="2"><span style="font-size: 20px; color: red; cursor: pointer;" class="glyphicon glyphicon-chevron-right"></span></td>
-                                    <td>
-                                        <div id="fl_small_0" class="gh-offer-cell">
-                                            <header data-toggle="tooltip" data-original-title="<?php echo $results[0]['from_city_name']; ?> - <?php echo $results[0]['to_city_name']; ?>">
-                                                <?php echo $results[0]['from_city_small']; ?> - <?php echo $results[0]['to_city_small']; ?>
-                                            </header>
-                                            <span><?php echo $results[0]['price_monize']; ?> تومان</span>
-                                        </div>
-                                    </td> 
-                                    <td>
-                                        <div id="fl_small_1" class="gh-offer-cell">
-                                            <header data-toggle="tooltip" data-original-title="<?php echo $results[1]['from_city_name']; ?> - <?php echo $results[1]['to_city_name']; ?>">
-                                                <?php echo $results[1]['from_city_small']; ?> - <?php echo $results[1]['to_city_small']; ?>
-                                            </header>
-                                            <span><?php echo $results[1]['price_monize']; ?> تومان</span>
-                                        </div>
-                                    </td> 
-                                    <td>
-                                        <div id="fl_small_2" class="gh-offer-cell hidden-xs">
-                                            <header data-toggle="tooltip" data-original-title="<?php echo $results[2]['from_city_name']; ?> - <?php echo $results[2]['to_city_name']; ?>">
-                                                <?php echo $results[2]['from_city_small']; ?> - <?php echo $results[2]['to_city_small']; ?>
-                                            </header>
-                                            <span><?php echo $results[2]['price_monize']; ?> تومان</span>
-                                        </div>
-                                    </td> 
-                                    <td>
-                                        <div id="fl_small_3" class="gh-offer-cell hidden-sm hidden-xs">
-                                            <header data-toggle="tooltip" data-original-title="<?php echo $results[3]['from_city_name']; ?> - <?php echo $results[3]['to_city_name']; ?>">
-                                                <?php echo $results[3]['from_city_small']; ?> - <?php echo $results[3]['to_city_small']; ?>
-                                            </header>
-                                            <span><?php echo $results[3]['price_monize']; ?> تومان</span>
-                                        </div>
-                                    </td> 
-                                    <td onclick="backFare();" rowspan="2"><span style="font-size: 20px; color: red; cursor: pointer;" class="glyphicon glyphicon-chevron-left"></span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div id="fl_small_4" class="gh-offer-cell">
-                                            <header data-toggle="tooltip" data-original-title="<?php echo $results[4]['from_city_name']; ?> - <?php echo $results[4]['to_city_name']; ?>">
-                                                <?php echo $results[4]['from_city_small']; ?> - <?php echo $results[4]['to_city_small']; ?>
-                                            </header>
-                                            <span><?php echo $results[4]['price_monize']; ?> تومان</span>
-                                        </div>
-                                    </td> 
-                                    <td>
-                                        <div id="fl_small_5" class="gh-offer-cell">
-                                            <header data-toggle="tooltip" data-original-title="<?php echo $results[5]['from_city_name']; ?> - <?php echo $results[5]['to_city_name']; ?>">
-                                                <?php echo $results[5]['from_city_small']; ?> - <?php echo $results[5]['to_city_small']; ?>
-                                            </header>
-                                            <span><?php echo $results[5]['price_monize']; ?> تومان</span>
-                                        </div>
-                                    </td> 
-                                    <td>
-                                        <div id="fl_small_6" class="gh-offer-cell hidden-xs">
-                                            <header data-toggle="tooltip" data-original-title="<?php echo $results[6]['from_city_name']; ?> - <?php echo $results[6]['to_city_name']; ?>">
-                                                <?php echo $results[6]['from_city_small']; ?> - <?php echo $results[6]['to_city_small']; ?>
-                                            </header>
-                                            <span><?php echo $results[6]['price_monize']; ?> تومان</span>
-                                        </div>
-                                    </td> 
-                                    <td>
-                                        <div id="fl_small_7" class="gh-offer-cell hidden-sm hidden-xs">
-                                            <header data-toggle="tooltip" data-original-title="<?php echo $results[7]['from_city_name']; ?> - <?php echo $results[7]['to_city_name']; ?>">
-                                                <?php echo $results[7]['from_city_small']; ?> - <?php echo $results[7]['to_city_small']; ?>
-                                            </header>
-                                            <span><?php echo $results[7]['price_monize']; ?> تومان</span>
-                                        </div>
-                                    </td> 
-
-                                </tr>
-                            </table>
-
-                        </div>
-                    </div>
-                </div>
-                <!--offer-->
-            </div>
-            <!--offer and wtf-lg-md-sm-sx-->
-
             <div class="col-sm-2"></div>
         </div>
         <!--***ads and offer and wtf***-->
+
+        <!--offer and wtf-md-sm-xs-->
+        <div class="col-sm-8 visible-md visible-sm visible-xs">
+            <!--offer-->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12 gh-offer-box">
+                        <div class="gh-offer-header">
+                            <p>
+                                ارزان ترین نرخ در : 
+                                <span class="tat"><?php echo jdate("d-m-Y"); ?></span>
+                            </p>
+                        </div>
+
+                        <table>
+                            <tr>
+                                <td onclick="backFare();" rowspan="2"><span style="font-size: 20px; color: red; cursor: pointer;" class="glyphicon glyphicon-chevron-right"></span></td>
+                                <td>
+                                    <div id="fl_small_0" class="gh-offer-cell">
+                                        <header data-toggle="tooltip" data-original-title="<?php echo $results[0]['from_city_name']; ?> - <?php echo $results[0]['to_city_name']; ?>">
+                                            <?php echo $results[0]['from_city_small']; ?> - <?php echo $results[0]['to_city_small']; ?>
+                                        </header>
+                                        <span><?php echo $results[0]['price_monize']; ?> تومان</span>
+                                    </div>
+                                </td> 
+                                <td>
+                                    <div id="fl_small_1" class="gh-offer-cell">
+                                        <header data-toggle="tooltip" data-original-title="<?php echo $results[1]['from_city_name']; ?> - <?php echo $results[1]['to_city_name']; ?>">
+                                            <?php echo $results[1]['from_city_small']; ?> - <?php echo $results[1]['to_city_small']; ?>
+                                        </header>
+                                        <span><?php echo $results[1]['price_monize']; ?> تومان</span>
+                                    </div>
+                                </td> 
+                                <td>
+                                    <div id="fl_small_2" class="gh-offer-cell hidden-xs">
+                                        <header data-toggle="tooltip" data-original-title="<?php echo $results[2]['from_city_name']; ?> - <?php echo $results[2]['to_city_name']; ?>">
+                                            <?php echo $results[2]['from_city_small']; ?> - <?php echo $results[2]['to_city_small']; ?>
+                                        </header>
+                                        <span><?php echo $results[2]['price_monize']; ?> تومان</span>
+                                    </div>
+                                </td> 
+                                <td>
+                                    <div id="fl_small_3" class="gh-offer-cell hidden-sm hidden-xs">
+                                        <header data-toggle="tooltip" data-original-title="<?php echo $results[3]['from_city_name']; ?> - <?php echo $results[3]['to_city_name']; ?>">
+                                            <?php echo $results[3]['from_city_small']; ?> - <?php echo $results[3]['to_city_small']; ?>
+                                        </header>
+                                        <span><?php echo $results[3]['price_monize']; ?> تومان</span>
+                                    </div>
+                                </td> 
+                                <td onclick="nextFare();" rowspan="2"><span style="font-size: 20px; color: red; cursor: pointer;" class="glyphicon glyphicon-chevron-left"></span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div id="fl_small_4" class="gh-offer-cell">
+                                        <header data-toggle="tooltip" data-original-title="<?php echo $results[4]['from_city_name']; ?> - <?php echo $results[4]['to_city_name']; ?>">
+                                            <?php echo $results[4]['from_city_small']; ?> - <?php echo $results[4]['to_city_small']; ?>
+                                        </header>
+                                        <span><?php echo $results[4]['price_monize']; ?> تومان</span>
+                                    </div>
+                                </td> 
+                                <td>
+                                    <div id="fl_small_5" class="gh-offer-cell">
+                                        <header data-toggle="tooltip" data-original-title="<?php echo $results[5]['from_city_name']; ?> - <?php echo $results[5]['to_city_name']; ?>">
+                                            <?php echo $results[5]['from_city_small']; ?> - <?php echo $results[5]['to_city_small']; ?>
+                                        </header>
+                                        <span><?php echo $results[5]['price_monize']; ?> تومان</span>
+                                    </div>
+                                </td> 
+                                <td>
+                                    <div id="fl_small_6" class="gh-offer-cell hidden-xs">
+                                        <header data-toggle="tooltip" data-original-title="<?php echo $results[6]['from_city_name']; ?> - <?php echo $results[6]['to_city_name']; ?>">
+                                            <?php echo $results[6]['from_city_small']; ?> - <?php echo $results[6]['to_city_small']; ?>
+                                        </header>
+                                        <span><?php echo $results[6]['price_monize']; ?> تومان</span>
+                                    </div>
+                                </td> 
+                                <td>
+                                    <div id="fl_small_7" class="gh-offer-cell hidden-sm hidden-xs">
+                                        <header data-toggle="tooltip" data-original-title="<?php echo $results[7]['from_city_name']; ?> - <?php echo $results[7]['to_city_name']; ?>">
+                                            <?php echo $results[7]['from_city_small']; ?> - <?php echo $results[7]['to_city_small']; ?>
+                                        </header>
+                                        <span><?php echo $results[7]['price_monize']; ?> تومان</span>
+                                    </div>
+                                </td> 
+
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <!--offer-->
+        </div>
+        <!--offer and wtf-lg-md-sm-sx-->
     </div>
 </div>
