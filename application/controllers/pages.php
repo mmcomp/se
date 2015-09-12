@@ -14,6 +14,7 @@ class Pages extends CI_Controller {
         $this->load->library('flight_class',array(TRUE));
         $this->load->library('search_class');
         $this->load->library('city_class');
+        $this->load->library('reserve_class');
         
         $this->load->library('xgrid');
         $this->load->view('include/jdf');
@@ -41,6 +42,8 @@ class Pages extends CI_Controller {
         $data['title'] = 'TicketYab';
         $data['page_addr'] = $page;
         $data['is_logged'] =isset($_SESSION[$conf->app.'_user_id']);
+        $ckeditor_pages=array('admin');
+        $data['has_ckeditor'] = in_array($page,$ckeditor_pages);
         $this->load->view('templates/header', $data);
         $this->load->view('pages/'.$page, $data);
         $this->load->view('templates/footer', $data);

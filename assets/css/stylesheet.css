@@ -120,9 +120,10 @@ body {
 }
 .gh-ads-header {
     padding: 0;
+    
 }
 .gh-ads-box img {
-    padding: 16px 0;
+    padding: 16px 5px;
 }
 .gh-ads-header p {
     background-color: #5ce2ed;
@@ -208,18 +209,19 @@ body {
 /*search page stylesheet "sp = search page , sr = search result"*/
 .gh-sp-header {
     background-color: #c1bfc4;
+    height: 50px;
 }
 .gh-sp-header table td {
     text-align: center;
-    padding: 2px;
+    font-family: tahoma;
 }
 .gh-src-des {
     font-family: koodak;
-    font-size: 25px;
+    font-size: 20px;
 }
 .gh-date {
     font-family: koodak;
-    font-size: 18px;
+    font-size: 15px;
 }
 .gh-sp-home a {
     display: block;
@@ -229,7 +231,7 @@ body {
     color: #4d5059;
     background-color: #5ce2ed;
     line-height: 30px;
-    margin: 20px 0;
+    margin: 10px 0;
     box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
 }
 .gh-sp-body {
@@ -239,13 +241,11 @@ body {
     background-color: #e9e9e9;
     padding: 5px;
     font-family: koodak;
-    font-size: 18px;
+    font-size: 14px;
 }
 .gh-sr-header select {
-    font-size: 16px;
-    font-weight: 400;
+    font-size: 14px;
     padding-right: 5px;
-
 }
 .gh-sr-header span {
     padding:2px 0 0 5px;
@@ -338,4 +338,53 @@ body {
 .gh-air-list input {
     float: left;
     margin-left: 20px;
+}
+.gh-ads-body img {
+    margin-bottom: 10px;
+}
+/*admin*/
+.gh-admin ul {
+    list-style: none;
+    background-color: #34363d;
+    float: right;
+
+}
+.gh-admin li {
+    position: relative;
+    width: 300px;
+    padding: 10px 0;
+}
+.gh-admin a {
+    display: block;
+    color: #7690ee;
+}
+.gh-admin ul ul {
+    display: none;
+    position: absolute;
+    right: 301px;
+     z-index: 100;
+}
+.gh-admin li li {
+    width: 200px;
+}
+.gh-admin li:hover ul {
+    display: block;
+    top: 0;
+}
+.gh-modal-header {
+    background-image: url("../images/img/bg1.jpg");
+    background-repeat: repeat-x;
+    height: 48px;
+}
+.modal-header {
+    height: 48px;
+}
+.gh-modal-header ul {
+    list-style: none;
+}
+.modal-body {
+    height: 100%;
+}
+.modal-body li {
+    float: right;
 }

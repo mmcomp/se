@@ -6,7 +6,7 @@
             <img src="<?php echo asset_url(); ?>images/img/add.png" style="position: absolute; margin-top: -30px; margin-right: -10px; z-index: 10;">
             <div id="map_canvas1" style="padding: 70px 120px; border: 1px solid #42d3dc;"></div>
         </div>
-        <div class="gh-con-us col-sm-3">
+        <div id="myAnchor" class="gh-con-us col-sm-3">
             <img src="<?php echo asset_url(); ?>images/img/tell.png" style="position: absolute; margin-top: -40px; margin-right: 90px;">
             Tel : (+9851) 3855 91 29-31
             <br>
@@ -44,6 +44,7 @@
 <!--sub-footer-->
 
 <script>
+    var curdate = '<?php echo $this->inc_model->perToEnNums(jdate("Y-m-d")); ?>';
     var tat = '<input type="text" name="tatarikh" class="form-control" id="tatarikh" placeholder="تا تاریخ">';
     var aztarikhLimit;
     $(document).ready(function () {
@@ -105,7 +106,21 @@
         },
         autoClose: true
     });
-
+    var currr = curdate.split('-');
+    try
+    {
+        $("#tatarikh").pDatepicker("setDate", [parseInt(currr[0], 10), parseInt(currr[1], 10), parseInt(currr[2], 10), 0, 0]);
+    }
+    catch (e)
+    {
+    }
+    try
+    {
+        $("#aztarikh").pDatepicker("setDate", [parseInt(currr[0], 10), parseInt(currr[1], 10), parseInt(currr[2], 10), 0, 0]);
+    }
+    catch (e)
+    {
+    }
     $('#sel1').select2({
         dir: "rtl",
         placeholder: "مبدا"
@@ -176,6 +191,7 @@
         }
     }
     var fareIndex = 0;
+    var maxFare = 4;
     function backFare()
     {
         if (fareIndex > 0)
@@ -186,8 +202,11 @@
     }
     function nextFare()
     {
-        fareIndex++;
-        loadFare();
+        if (maxFare > fareIndex)
+        {
+            fareIndex++;
+            loadFare();
+        }
     }
     function loadFare()
     {
@@ -219,6 +238,12 @@
             }
         });
     }
+    $('a.scroll').click(function () {
+        $('html, body').animate({
+            scrollTop: $($(this).attr('href')).offset().top
+        }, 500);
+        return false;
+    });
 </script>
 </body>
 </html>

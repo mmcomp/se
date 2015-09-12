@@ -10,6 +10,7 @@
         <title>
             <?php echo $title; ?>
         </title>
+        <link rel="icon" href="<?php echo asset_url(); ?>images/img/fav.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="<?php echo asset_url(); ?>css/bootstrap.min.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo asset_url(); ?>css/bootstrap-rtl.min.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo asset_url(); ?>css/crm.css" type="text/css" />
@@ -21,9 +22,10 @@
         <link rel="stylesheet" href="<?php echo asset_url(); ?>css/fileinput.min.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo asset_url(); ?>css/bootstrap-datepicker.min.css" />
         <link rel="stylesheet" href="<?php echo asset_url(); ?>css/persian-datepicker.css" />
+        <link rel="stylesheet" href="<?php echo asset_url(); ?>css/gh-reserve.css" />
         <script src=" <?php echo asset_url() . 'js/jquery-1.11.1.min.js' ?>" ></script>
         <script src=" <?php echo asset_url() . 'js/bootstrap.min.js' ?>" ></script>
-        <script src=" <?php echo asset_url() . 'js/grid.min.js' ?>" ></script>
+        <script src=" <?php echo asset_url() . 'js/grid.js' ?>" ></script>
         <script src=" <?php echo asset_url() . 'js/bootstrap-datepicker.min.js' ?>"></script>
         <script src=" <?php echo asset_url() . 'js/bootstrap-datepicker.fa.min.js' ?>"></script>
         <script src=" <?php echo asset_url() . 'js/fileinput.min.js' ?>"></script>
@@ -69,12 +71,12 @@
                 <!--menu-large-->
                 <div class="col-sm-8 gh-menu-large hidden-sm hidden-xs">
                     <ul>
-                        <li><a href="#">صفحه اصلی</a></li>
+                        <li><a href="<?php echo site_url(); ?>">صفحه اصلی</a></li>
                         <li><a href="#">اطلاعات پرواز</a></li>
-                        <li><a href="#">بخشنامه ها</a></li>
-                        <li><a href="#">تاریخچه ایرلاین ها</a></li>
-                        <li><a href="#">کاریابی و استخدام</a></li>
-                        <li><a href="#">ارتباط با ما</a></li>
+                        <li><a href="<?php site_url(); ?> action?menu=bakhshname">بخشنامه ها</a></li>
+                        <li><a href="<?php site_url(); ?> action?menu=history">تاریخچه ایرلاین ها</a></li>
+                        <li><a href="<?php site_url(); ?> action?menu=job">کاریابی و استخدام</a></li>
+                        <li><a class="scroll" href="#myAnchor">ارتباط با ما</a></li>
                     </ul>
                 </div>
                 <!--menu-large-->
@@ -87,7 +89,7 @@
                         <li><a href="#">بخشنامه ها</a></li>
                         <li><a href="#">تاریخچه ایرلاین ها</a></li>
                         <li><a href="#">کاریابی و استخدام</a></li>
-                        <li><a href="#">ارتباط با ما</a></li>
+                        <li><a href="#myAnchor">ارتباط با ما</a></li>
                     </ul>
                 </div>
                 <!--menu-small-->
