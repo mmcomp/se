@@ -1,3 +1,7 @@
+<?php 
+$passengers = $_SESSION ['passengers'];
+var_dump($passengers);
+?>
 <div class="container" style="margin: 10px auto;">
     <div class="row">
         <div class="col-sm-12 refvouch-body" style="margin-bottom: 10px;">

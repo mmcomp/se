@@ -1,4 +1,22 @@
 <?php
+$_SESSION['refrence_id'] = NULL;
+$_SESSION['voucher_id'] = NULL;
+$_SESSION['data'] = NULL;
+$_SESSION['adl'] = NULL;
+$_SESSION['chd'] = NULL;
+$_SESSION['inf'] = NULL;
+$_SESSION['data2'] = NULL;
+$_SESSION['gdata'] = NULL;
+$_SESSION['passengers'] = NULL;
+
+$err = '';
+if(isset($_REQUEST['err']) && trim($_REQUEST['err']))
+{
+    $e = trim($_REQUEST['err']);
+    $err = <<<ERR
+            alert('$e');
+ERR;
+}
 $my = new mysql_class ();
 $query = "SELECT * FROM ads_img WHERE is_home=1 ORDER BY tartib";
 $my->ex_sql($query, $outs);
@@ -350,4 +368,5 @@ if (isset($_REQUEST['dat'])) {
         var obj = $(dobj).parent().parent().next();
         obj.slideDown();
     }
+    <?php echo $err; ?>
 </script>

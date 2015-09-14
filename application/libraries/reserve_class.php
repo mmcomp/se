@@ -10,7 +10,7 @@ class reserve_class {
         
     }
 
-    public function preReserve($source_id, $flight_id, $ncap, $class_ghimat, $adl, $chd, $inf, $ip, $agency_id) {
+    public static function preReserve($source_id, $flight_id, $ncap, $class_ghimat, $adl, $chd, $inf, $ip, $agency_id) {
         $out['err']['code'] = 8;
         $out['err']['msg'] = 'UNKNOWN ERROR';
         $client = new nusoap_client("http://thtcenter.ir/se/server.php?wsdl", true);
@@ -27,6 +27,8 @@ class reserve_class {
             "ip" => $ip,
             "agency_id" => $agency_id
         );
+        echo "ticketyab -> SE<br/>";
+        var_dump($arguments);
         $result = $client->call("reserve_start", $arguments);
         if ($client->fault) {
             $out['err']['code'] = 8;
@@ -43,7 +45,7 @@ class reserve_class {
         return($out);
     }
 
-    public function passengers($refID, $passengers, $mobile, $email, $address) {
+    public static function passengers($refID, $passengers, $mobile, $email, $address) {
         $out['err']['code'] = 8;
         $out['err']['msg'] = 'UNKNOWN ERROR';
         $client = new nusoap_client("http://thtcenter.ir/se/server.php?wsdl", true);
@@ -65,6 +67,12 @@ class reserve_class {
             if ($error) {
                 $out['err']['code'] = 8;
                 $out['err']['msg'] = $error;
+                echo '<hr/>';
+                echo '<h2>Request</h2><pre>' . htmlspecialchars($client->request, ENT_QUOTES) . '</pre>';
+                echo '<hr/>';
+                echo '<h2>Response</h2><pre>' . htmlspecialchars($client->response, ENT_QUOTES) . '</pre>';
+                echo '<hr/>';
+                echo '<h2>Debug</h2><pre>' . htmlspecialchars($client->getDebug(), ENT_QUOTES) . '</pre>';
             } else {
                 $out = json_decode($result, TRUE);
             }
