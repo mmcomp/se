@@ -160,7 +160,6 @@ function jshowGrid(indata, gname, targetFile)
     }
     function listToCombo(tmpList, sval)
     {
-        console.log(tmpList);
         var out = '';
         for (val1 in tmpList)
         {
@@ -176,7 +175,8 @@ function jshowGrid(indata, gname, targetFile)
         if (gArgs[gname]['eRequest'])
             ereq = $.param(gArgs[gname]['eRequest']);
         canSave = false;
-        ur = ajaxTarget + "command=" + command + "&field=" + field + "&value=" + encodeURIComponent(value) + "&id=" + id + "&table=" + gname + "&" + ereq;
+        var ur = ajaxTarget + "command=" + command + "&field=" + field + "&value=" + encodeURIComponent(value) + "&id=" + id + "&table=" + gname + "&" + ereq + "&";
+        console.log(ur);
         if (grid[gname].alertGrid)
             alert(ur);
         if (gArgs[gname]['beforeEdit'] && gArgs[gname]['beforeEdit'] != '')
@@ -310,7 +310,7 @@ function jshowGrid(indata, gname, targetFile)
         var ereq = '';
         if (gArgs[gname]['eRequest'])
             ereq = $.param(gArgs[gname]['eRequest']);
-        var output = ajax_target + 'command=insert&table=' + gname + "&" + ereq;
+        var output = ajax_target + 'command=insert&table=' + gname + "&" + ereq + "&";
         $.each($('.save_input-' + gname), function (id, field) {
             output += field.name + '=' + encodeURIComponent(field.value) + '&';
         });
