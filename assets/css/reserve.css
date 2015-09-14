@@ -1,0 +1,258 @@
+@font-face {
+    font-family: iran-sans;
+    src: url('../font/iran-sans.ttf');
+}
+/*page reserve1*/
+.countdown-body header {
+    background-color: #e9eaee;
+    border: 1px solid #ddd;
+}
+.countdown-body div {
+    width: 250px;
+    padding: 5px;
+    margin: 5px auto;
+    font-family: iran-sans;
+    font-size: 14px;
+    color: #333333;
+    text-align: center;
+    color: red;
+    border: 1px solid red;
+    background-color: #fff;
+}
+.flight-summery-body header {
+    background-color: #30a9b0;
+    font-family: iran-sans;
+    padding: 5px 0;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    color: #fff;
+    border: 1px solid #257a7f;
+    margin-bottom: 2px;
+}
+.flight-summery-body ul {
+    list-style: none;
+    padding: 0;
+    background-color: #e9eaee;
+    border: 1px solid #37b4bc;
+    text-align: center;
+    margin-bottom: 2px;
+}
+.flight-summery-body li {
+    margin: 5px 15px 5px 15px;
+    font-family: iran-sans;
+    font-size: 12px;
+    color: #333333;
+    font-weight: 600;
+}
+.flight-summery-body span {
+    color: #37b4bc;
+}
+.passenger-info-body header {
+    background-color: #42d3dc;
+    font-family: iran-sans;
+    padding: 5px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+    border: 1px solid #37b4bc;
+    margin-bottom: 2px;
+}
+.passenger-info-box {
+    border: 1px solid #37b4bc;
+}
+.passenger-info-table-large {
+    width: 100%;
+    font-family: iran-sans;
+    font-size: 13px;
+    color: #333333;
+}
+.passenger-info-table-large th {
+    width: 1%;
+    text-align: center;
+}
+.passenger-info-table-large td {
+    width: 1%;
+    text-align: center;
+}
+.passenger-info-table-large input {
+    width: 110px;
+    margin: 2px;
+    padding: 2px;
+}
+.passenger-info-table-small {
+    width: 100%;
+    font-family: iran-sans;
+    font-size: 12px;
+    color: #333333;
+    margin-bottom: 0;
+}
+.passenger-info-table-small tr:first-child td {
+    border: 0;
+}
+.passenger-info-table-small td {
+    width: 1%;
+    text-align: center;
+}
+.passenger-info-table-small input {
+    margin: 2px;
+    padding: 2px;
+}
+.passenger-extra-info-large {
+    width: 100%;
+    font-family: iran-sans;
+    font-size: 12px;
+    color: #333333;
+    background-color: #e9eaee;
+    border-top: 2px solid #ddd;
+}
+.passenger-extra-info-large th {
+    text-align: center;
+    padding: 8px;
+}
+.passenger-extra-info-large td {
+    width: 1%;
+    text-align: center;
+    padding-bottom: 8px;
+}
+.passenger-extra-info-large input {
+    width: 170px;
+    margin: 2px;
+    padding: 2px;
+}
+.passenger-extra-info-small {
+    width: 100%;
+    font-family: iran-sans;
+    font-size: 12px;
+    color: #333333;
+    background-color: #ddd;
+}
+.passenger-extra-info-small td {
+    width: 1%;
+    text-align: center;
+}
+.passenger-extra-info-small input {
+    margin: 2px;
+    padding: 2px;
+}
+.payment-body header {
+    background-color: #42d3dc;
+    font-family: iran-sans;
+    padding: 5px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+    border: 1px solid #37b4bc;
+    margin-bottom: 2px;
+}
+.payment-box {
+    border: 1px solid #37b4bc;
+    overflow: auto;
+}
+.payment-body table {
+    width: 100%;
+    font-family: iran-sans;
+    font-size: 12px;
+}
+.payment-body th {
+    width: 1%;
+    text-align: center;
+}
+.payment-body td {
+    width: 1%;
+    text-align: center;
+    background-color: #e9eaee;
+}
+.payment-box button {
+    float: left;
+    margin: 10px 0 10px 15px;
+    padding: 5px 10px;
+    font-family: iran-sans;
+    font-size: 14px;
+    color: #333333;
+    background-color: #42d3dc;
+    border: 1px solid #37b4bc;
+    border-radius: 2px;
+}
+/*page reserve2*/
+.refvouch-body header {
+    background-color: #e9eaee;
+    border: 1px solid #ddd;
+}
+.refvouch-body div  {
+    width: 270px;
+    padding: 5px;
+    margin: 5px auto;
+    font-family: iran-sans;
+    font-size: 14px;
+    color: #333333;
+    text-align: center;
+    color: red;
+    border: 1px solid red;
+    background-color: #fff;
+}
+.financial-info-body header {
+    background-color: #42d3dc;
+    padding: 5px 20px;
+    font-family: iran-sans;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+    border: 1px solid #37b4bc;
+    margin-bottom: 2px;
+}
+.financial-info-box {
+    border: 1px solid #37b4bc;
+    overflow: auto;
+}
+.financial-info-box div {
+    border-bottom: 2px solid #dddddd;
+    overflow: auto;
+}
+.financial-info-body table {
+    width: 100%;
+    font-family: iran-sans;
+    font-size: 12px;
+    float: right;
+    margin: 0;
+}
+.financial-info-body th {
+    text-align: center;
+}
+.financial-info-body td {
+    text-align: center;
+    width: 100px;
+    background-color: #e9eaee;
+}
+.financial-info-body button {
+    margin: 10px 0 10px 15px;
+    padding: 5px 10px;
+    font-family: iran-sans;
+    font-size: 14px;
+    color: #333333;
+    background-color: #42d3dc;
+    border: 1px solid #37b4bc;
+    border-radius: 2px;
+    float: left;
+}
+.financial-info-body span {
+    display: block;
+    font-family: iran-sans;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 0;
+    color: #333333;
+    float: right;
+    padding: 10px 30px 0 0;
+    line-height: 25px;
+    letter-spacing: 1px;
+    word-spacing: 1px;
+}
+.financial-info-body img {
+    width: 140px;
+    float: left;
+    opacity: 0.8;
+}
+.financial-info-body img:hover {
+    opacity: 1;
+}
