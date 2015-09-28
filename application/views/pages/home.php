@@ -8,7 +8,9 @@ $_SESSION['inf'] = NULL;
 $_SESSION['data2'] = NULL;
 $_SESSION['gdata'] = NULL;
 $_SESSION['passengers'] = NULL;
-
+$_SESSION['start_time'] = NULL;
+$_SESSION['time'] = NULL;
+$_SESSION['state'] = NULL;
 $err = '';
 if(isset($_REQUEST['err']) && trim($_REQUEST['err']))
 {

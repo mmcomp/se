@@ -82,6 +82,9 @@ PPPP;
         ),
         array(
             "gname_tour" => array('table' => 'tour_img', 'div' => 'div_tour')
+        ),
+        array(
+            "gname_rookeshi" => array('table' => 'rookeshi', 'div' => 'div_rookeshi')
         )
     );
     if (isset($gnames[$i])) {
@@ -93,6 +96,8 @@ PPPP;
             $xgrid1->eRequest[$gname1] = array("img_index" => $i);
             $xgrid1->pageRows[$gname1] = 10;
             $xgrid1->column[$gname1][0]['name'] = '';
+            $xgrid1->canDelete[$gname1] = TRUE;
+
             if ($i == 0) {
                 $xgrid1->column[$gname1][1] = $xgrid1->column[$gname1][0];
                 $xgrid1->column[$gname1][1]['name'] = 'تصویر';
@@ -105,7 +110,7 @@ PPPP;
                     1 => 'است'
                 );
                 $xgrid1->column[$gname1][4]['name'] = 'ترتیب';
-            } else if ($i = 1) {
+            } else if ($i == 1) {
                 $content = '<input name="tourtitle" placeholder="موضوع" class="form-control" ><textarea name="tourcontent" placeholder="جزئیات" class="form-control" ></textarea>' . $content . '<button class="btn btn-danger pull-left">ثبت</button>';
                 $xgrid1->column[$gname1][1]['name'] = 'موضوع';
                 $xgrid1->column[$gname1][2]['name'] = 'جزئیات';
@@ -114,10 +119,15 @@ PPPP;
                 $xgrid1->column[$gname1][3]['access'] = 1;
                 $xgrid1->column[$gname1][3]['cfunction'] = array('loadImage');
                 $xgrid1->column[$gname1][4]['name'] = 'ترتیب';
+            } else if ($i == 2) {
+                $content = '';
+                $xgrid1->column[$gname1][1]['name'] = 'منبع';
+                $xgrid1->column[$gname1][1]['access'] = 1;
+                $xgrid1->column[$gname1][2]['name'] = 'روکشی';
+                $xgrid1->canDelete[$gname1] = FALSE;
             }
             $xgrid1->canAdd[$gname1] = FALSE;
             $xgrid1->canEdit[$gname1] = TRUE;
-            $xgrid1->canDelete[$gname1] = TRUE;
             $out = $xgrid1->getOut($_REQUEST);
             if ($xgrid1->done)
                 die($out);
@@ -135,10 +145,8 @@ JSS;
 
 
     <div class="row">
-        <h1 style=" display: block; color: #42d3dc; border: 1px solid #42d3dc; padding: 10px; width: 100%; text-align: center;">
+        <h1 style=" display: block; color: #42d3dc; border-bottom: 1px solid #42d3dc; padding: 10px; width: 100%; text-align: center;">
             پنل مدیریتی تیکت یاب 
-            <br>
-            beta Version
         </h1>
         <div class="col-sm-12" style="margin: 20px 0 100px 0;">
             <div class="col-sm-2"></div>
@@ -166,7 +174,10 @@ JSS;
                     </li>
                     <li>
                         <a href="#" onclick="startAdd(1);">تورها</a>
-                    </li>                    
+                    </li>  
+                    <li>
+                        <a href="#" onclick="startAdd(2);">روکشی</a>
+                    </li>  
                     <li>
                         <a href="<?php echo site_url() ?>login">خروج</a>
                     </li>
@@ -178,6 +189,7 @@ JSS;
                 </form>
                 <div id="div_ad"></div>
                 <div id="div_tour"></div>
+                <div id="div_rookeshi"></div>
             </div>
         </div>
     </div>

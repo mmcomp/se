@@ -15,6 +15,7 @@ class Pages extends CI_Controller {
         $this->load->library('search_class');
         $this->load->library('city_class');
         $this->load->library('reserve_class');
+        $this->load->library('rookeshi_class');
         
         $this->load->library('xgrid');
         $this->load->view('include/jdf');

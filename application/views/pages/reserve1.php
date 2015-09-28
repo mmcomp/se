@@ -1,36 +1,38 @@
 <?php
 $voucher_id = $_SESSION['voucher_id'];
 $refrence_id = $_SESSION['refrence_id'];
-echo $refrence_id;
 $data = $_SESSION['data'];
 $adl = (int) $_SESSION['adl'];
 $chd = (int) $_SESSION['chd'];
 $inf = (int) $_SESSION['inf'];
 $gdata = $_SESSION['gdata'];
 $flight_info2 = NULL;
+$rookeshi2 = 0;
+$flight_info = json_decode($data);
+$rookeshi = rookeshi_class::get($flight_info->source_id);
 if (isset($_SESSION['data2'])) {
     $data2 = $_SESSION['data2'];
     $flight_info2 = json_decode($data2);
+    $rookeshi2 = rookeshi_class::get($flight_info2->source_id);
 }
-$flight_info = json_decode($data);
-/*
- * TEST
-  $gdata = array(
-  'total_price' => 10000,
-  'adult_price' => 100,
-  'child_price' => 50,
-  'inf_price' => 25,
-  'total_off' => 10000,
-  'adult_off' => 100,
-  'child_off' => 50,
-  );
-  $adl = 2;
-  $chd = 0;
-  $inf = 1;
-  $voucher_id = '724001445';
-  $refrence_id = '27';
-  $data = '{"id":"10018732","source_id":"1","agency_id":"-1","from_city":"MHD","to_city":"THR","flight_number":"6223","flight_id":"2","fdate":"1394-07-04","ftime":"15:00","ltime":"16:15","typ":"0","capacity":"5","class_ghimat":"Y","class":"1","buy_time":"10","airline":"تابان","airplane":"B737-400","description":"","extra":"0","excurrency":"1","extrad":"","price":185000,"currency":"1","public":"0","poursant":"1","day":"0","add_price":"0","tax":"0","taxd":"","no_public":"0","open_price":"0","open_price_currency":"0","agency_site":"www.darvishibooking.ir","bfid":"0","target_capa":"0","tell_time":"60"}';
- */
+if (!isset($_SESSION['state'])) {
+    redirect("home");
+} else {
+    if ((int) $_SESSION['state'] == 2) {
+        redirect("reserve2");
+    } else if ((int) $_SESSION['state'] != 1) {
+        redirect("home");
+    }
+}
+$time = (int) $_SESSION['time'];
+if (!isset($_SESSION['start_time'])) {
+    $_SESSION['start_time'] = time();
+}
+$start_time = $_SESSION['start_time'];
+$now = time();
+if ($now - $start_time > $time) {
+    redirect("home?err=زمان به پایان رسید");
+}
 if (isset($_REQUEST['gender'])) {
     $gender = $_REQUEST ['gender'];
     $fname = $_REQUEST ['fname'];
@@ -63,6 +65,7 @@ if (isset($_REQUEST['gender'])) {
     $sabt_passenger = reserve_class::passengers($refrence_id, $passengers, $mobile, $email, $address, $extra_info);
     if ($sabt_passenger['err']['code'] == 0) {
         $_SESSION ['passengers'] = $passengers;
+        $_SESSION['state'] = 2;
         redirect('reserve2');
     } else {
         $err = 'در ثبت رزرو شما خطایی رخ داده است. لطفا مجددا تلاش فرمایید.';
@@ -82,18 +85,18 @@ $tr = <<<mmcomp
                 </select>
             </td>
             <td>
-                <input name="fname[]" type="text" placeholder="فارسی">
-                <input name="fname_en[]" style="direction: ltr" type="text" placeholder="EN">
+                <input name="fname[]" type="text" placeholder="فارسی" class="inp1 lname">
+                <input name="fname_en[]" style="direction: ltr" type="text" placeholder="EN" class="inp1 lname">
             </td>
             <td>
-                <input name="lname[]" type="text" placeholder="فارسی">
-                <input name="lname_en[]" style="direction: ltr" type="text" placeholder="EN">
+                <input name="lname[]" type="text" placeholder="فارسی" class="inp1 lname">
+                <input name="lname_en[]" style="direction: ltr" type="text" placeholder="EN" class="inp1 lname">
             </td>
             <td>
-                <input name="shomare_melli[]" type="text">
-                <input name="passport_engheza[]" type="text" placeholder="انقضای پاسپورت" title="بصورت : روز-ماه-سال">
+                <input name="shomare_melli[]" type="text" class="inp1 shomare_melli_passport">
+                <input name="passport_engheza[]" type="text" placeholder="انقضای پاسپورت" title="بصورت : روز-ماه-سال" class="inp1 passport_engheza">
             </td>
-            <td><input name="birthday[]" type="text" title="بصورت : روز-ماه-سال" placeholder="بصورت : روز-ماه-سال"></td>
+            <td><input name="birthday[]" type="text" title="بصورت : روز-ماه-سال" placeholder="بصورت : روز-ماه-سال" class="inp1 birthday"></td>
         </tr>
 mmcomp;
 
@@ -118,27 +121,27 @@ $trs = <<<ghh
             <tr>
                 <td>نام</td>
                 <td>
-                    <input name="fname[]" type="text" placeholder="فارسی">
-                    <input name="fname_en[]" style="direction: ltr" type="text" placeholder="EN">
+                    <input name="fname[]" type="text" placeholder="فارسی" class="inp2 lname">
+                    <input name="fname_en[]" style="direction: ltr" type="text" placeholder="EN" class="inp2 lname">
                 </td>
             </tr>
             <tr>
                 <td>نام خانوادگی</td>
                 <td>
-                    <input name="lname[]" type="text" placeholder="فارسی">
-                    <input name="lname_en[]" style="direction: ltr" type="text" placeholder="EN">
+                    <input name="lname[]" type="text" placeholder="فارسی" class="inp2 lname">
+                    <input name="lname_en[]" style="direction: ltr" type="text" placeholder="EN" class="inp2 lname">
                 </td>
             </tr>
             <tr>
                 <td>شماره ملی - شماره پاسپورت</td>
                 <td>
-                    <input name="shomare_melli[]" type="text">
-                    <input name="passport_engheza[]" type="text" placeholder="تاریخ انقضای پاسپورت" title="بصورت : 25-11-1395">
+                    <input name="shomare_melli[]" type="text" class="inp2 shomare_melli_passport">
+                    <input name="passport_engheza[]" type="text" placeholder="تاریخ انقضای پاسپورت" title="بصورت : 25-11-1395" class="inp2 passport_engheza">
                 </td>
             </tr>
             <tr style="border-bottom: 2px solid #ddd;">
                 <td>تاریخ تولد</td>
-                <td><input name="birthday[]" type="text" title="بصورت : روز-ماه-سال" placeholder="بصورت : روز-ماه-سال"></td>
+                <td><input name="birthday[]" type="text" title="بصورت : روز-ماه-سال" placeholder="بصورت : روز-ماه-سال" class="inp2 birthday"></td>
             </tr>
 ghh;
 
@@ -427,12 +430,133 @@ for ($i = 0; $i < $inf; $i++) {
     </div>
 </div>
 <script>
+    var all = <?php echo (int) $_SESSION['time']; ?>;
+    var start_time = <?php echo $_SESSION['start_time']; ?>;
+    var d = new Date();
+    var current_time = parseInt(d.getTime() / 1000, 10);
     function sabt(i) {
+        $(".warn").remove();
         if (i === 1) {
-            $("#form_large").submit();
+            var ok = true;
+            $(".inp1").each(function (id, feild) {
+
+                if ($(feild).hasClass("lname"))
+                {
+                    if (String($(feild).val()).length < 3)
+                    {
+                        $(feild).after("<div style='color:red;' class='warn'>" + 'این فیلد باید کامل وارد شود' + "</div>");
+                        ok = false;
+                    }
+                }
+                if ($(feild).hasClass("shomare_melli_passport"))
+                {
+                    if (String($(feild).val()).length < 10)
+                    {
+                        $(feild).after("<div style='color:red;' class='warn'>" + 'این فیلد باید کامل وارد شود' + "</div>");
+                        ok = false;
+                    }
+                }
+                if ($(feild).hasClass("birthday"))
+                {
+                    if (String($(feild).val()).length < 10)
+                    {
+                        $(feild).after("<div style='color:red;' class='warn'>" + 'این فیلد باید کامل وارد شود' + "</div>");
+                        ok = false;
+                    }
+                }
+            });
+            if (ok === true)
+            {
+                $("#form_large").submit();
+            }
         }
         else {
-            $("#form_small").submit();
+            var ok = true;
+            $(".inp2").each(function (id, feild) {
+
+                if ($(feild).hasClass("lname"))
+                {
+                    if (String($(feild).val()).length < 3)
+                    {
+                        $(feild).after("<div style='color:red;' class='warn'>" + 'این فیلد باید کامل وارد شود' + "</div>");
+                        ok = false;
+                    }
+                }
+                if ($(feild).hasClass("shomare_melli_passport"))
+                {
+                    if (String($(feild).val()).length < 10)
+                    {
+                        $(feild).after("<div style='color:red;' class='warn'>" + 'این فیلد باید کامل وارد شود' + "</div>");
+                        ok = false;
+                    }
+                }
+                if ($(feild).hasClass("birthday"))
+                {
+                    if (String($(feild).val()).length < 10)
+                    {
+                        $(feild).after("<div style='color:red;' class='warn'>" + 'این فیلد باید کامل وارد شود' + "</div>");
+                        ok = false;
+                    }
+                }
+            });
+            if (ok === true)
+            {
+                $("#form_small").submit();
+            }
         }
     }
+    var timer;
+    function createTime(inp)
+    {
+        var m = (inp - (inp % 60)) / 60;
+        var s = inp % 60;
+        if (m < 10)
+            m = '0' + m;
+        if (s < 10)
+            s = '0' + s;
+        return(m + ':' + s);
+    }
+    function fn()
+    {
+        d = new Date();
+        current_time = parseInt(d.getTime() / 1000, 10);
+        if (current_time - start_time > all)
+        {
+            //window.location = '<?php echo site_url(); ?>home?err=پایان مهلت';
+            $(".container").html('<a href="<?php echo site_url(); ?>home?err=پایان مهلت ورود اطلاعات">بازگشت</a>');
+            alert('مهلت شما به پایان رسید');
+        }
+        else
+        {
+            $("#time").html(createTime(all - current_time + start_time));
+            setTimeout(function () {
+                fn();
+            }, 1000);
+        }
+
+
+
+    }
+    $(document).ready(function () {
+        if (current_time - start_time > all)
+        {
+            //window.location = '<?php echo site_url(); ?>home?err=پایان مهلت';
+        }
+        else
+        {
+            fn();
+        }
+//        $(".inp").blur(function(){
+//            var obj = $(this);
+//            var val = obj.val();
+//            if(obj.hasClass("lname"))
+//            {
+//                if(String(val).length<3)
+//                {
+//                    obj.css("border","red solid 1px");
+//                }
+//                
+//            }
+//        });
+    });
 </script>
