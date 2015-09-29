@@ -1,16 +1,94 @@
-<?php 
+<?php
+$voucher_id = $_SESSION['voucher_id'];
+$voucher = $voucher_id[0] . ((count($voucher_id) == 2) ? '-' . $voucher_id[1] : '');
+$refrence_id = $_SESSION['refrence_id'];
 $passengers = $_SESSION ['passengers'];
+$adl = (int) $_SESSION['adl'];
+$chd = (int) $_SESSION['chd'];
+$inf = (int) $_SESSION['inf'];
+$price = $_SESSION['price'];
 var_dump($passengers);
+$tr = <<<mmcomp
+<tr>
+    <td>#no#</td>
+    <td>#age#</td>
+    <td>
+        #gender#
+    </td>
+    <td>
+        #fname#
+        <br>
+        #fname_en#
+    </td>
+    <td>
+        #lname#
+        <br>
+        #lname_en#
+    </td>
+    <td>
+        #shomare_melli#
+    </td>
+    <td>
+        #birthday#
+    </td>
+</tr>
+mmcomp;
+
+$trs = <<<mmcomp
+<tr>
+    <td>#no#</td>
+    <td>#age#</td>
+    <td>
+        #gender#
+    </td>
+    <td>
+        #fname#
+        <br>
+        #fname_en#
+    </td>
+    <td>
+        #lname#
+        <br>
+        #lname_en#
+    </td>
+    <td>
+        #shomare_melli#
+    </td>
+    <td>
+        #birthday#
+    </td>
+</tr>
+mmcomp;
+
+$tr_large = '';
+$tr_small = '';
+$no = 1;
+for ($i = 0; $i < count($passengers); $i++) {
+    $tr_tmp = $tr;
+    $tr_tmp = str_replace('#no#', $i + 1, $tr_tmp);
+    $tr_tmp = str_replace('#age#', $passengers[$i]['age'], $tr_tmp);
+    $tr_tmp = str_replace('#fname#', $passengers[$i]['fname'], $tr_tmp);
+    $tr_tmp = str_replace('#gender#', ($passengers[$i]['gender']==1)?'آقا':'خانوم', $tr_tmp);
+    $tr_tmp = str_replace('#fname_en#', $passengers[$i]['fname_en'], $tr_tmp);
+    $tr_tmp = str_replace('#lname#', $passengers[$i]['lname'], $tr_tmp);
+    $tr_tmp = str_replace('#lname_en#', $passengers[$i]['lname_en'], $tr_tmp);
+    $tr_tmp = str_replace('#shomare_melli#', $passengers[$i]['shomare_melli'], $tr_tmp);
+    $tr_tmp = str_replace('#birthday#', $passengers[$i]['birthday'], $tr_tmp);
+    $tr_large .= $tr_tmp;
+    //$tr_small.=$trs_tmp;
+    $no++;
+}
 ?>
+
 <div class="container" style="margin: 10px auto;">
     <div class="row">
         <div class="col-sm-12 refvouch-body" style="margin-bottom: 10px;">
             <header>
                 <div>
                     رفرنس : 
-                    <span style="padding-left: 20px;">9HT18P</span>
+                    <span style="padding-left: 20px;"><?php echo $refrence_id ?></span>
                     واچر : 
-                    <span>880576988</span>
+                    <span><?php echo $voucher ?></span>
                 </div>
             </header>
         </div><!--reserve-countdown-->
@@ -118,52 +196,7 @@ var_dump($passengers);
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>adult</td>
-                            <td>
-                                مرد
-                            </td>
-                            <td>
-                                حمیدرضا
-                                <br>
-                                Hamidreza
-                            </td>
-                            <td>
-                                عبدی کاشانی
-                                <br>
-                                Abdi Kashani
-                            </td>
-                            <td>
-                                12345678954689
-                            </td>
-                            <td>
-                                1342-6-13
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>adult</td>
-                            <td>
-                                مرد
-                            </td>
-                            <td>
-                                حمیدرضا
-                                <br>
-                                Hamidreza
-                            </td>
-                            <td>
-                                عبدی کاشانی
-                                <br>
-                                Abdi Kashani
-                            </td>
-                            <td>
-                                12345678954689
-                            </td>
-                            <td>
-                                1342-6-13
-                            </td>
-                        </tr>
+                        <?php echo $tr_large ?>
                     </tbody>
                 </table>
 

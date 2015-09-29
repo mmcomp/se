@@ -51,7 +51,7 @@ class reserve_class {
         return($out);
     }
 
-    public static function passengers($refID, $passengers, $mobile, $email, $address) {
+    public static function passengers($refID, $passengers, $mobile, $email, $address, $description) {
         $out['err']['code'] = 8;
         $out['err']['msg'] = 'UNKNOWN ERROR';
         $client = new nusoap_client("http://thtcenter.ir/se/server.php?wsdl", true);
@@ -62,7 +62,8 @@ class reserve_class {
             "jpassengers" => json_encode($passengers),
             "mobile" => $mobile,
             "email" => $email,
-            "address" => $address
+            "address" => $address,
+            "description" => $description
         );
         $result = $client->call("reserve_passengers", $arguments);
         if ($client->fault) {

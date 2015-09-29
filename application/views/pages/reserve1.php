@@ -5,7 +5,7 @@ $data = $_SESSION['data'];
 $adl = (int) $_SESSION['adl'];
 $chd = (int) $_SESSION['chd'];
 $inf = (int) $_SESSION['inf'];
-$gdata = $_SESSION['gdata'];
+$price = $_SESSION['price'];
 $flight_info2 = NULL;
 $rookeshi2 = 0;
 $flight_info = json_decode($data);
@@ -30,6 +30,8 @@ if (!isset($_SESSION['start_time'])) {
 }
 $start_time = $_SESSION['start_time'];
 $now = time();
+//var_dump($_SESSION);
+//die();
 if ($now - $start_time > $time) {
     redirect("home?err=زمان به پایان رسید");
 }
@@ -63,14 +65,14 @@ if (isset($_REQUEST['gender'])) {
         $passengers[] = $passenger;
     }
     $sabt_passenger = reserve_class::passengers($refrence_id, $passengers, $mobile, $email, $address, $extra_info);
+    var_dump($passenger);
     if ($sabt_passenger['err']['code'] == 0) {
         $_SESSION ['passengers'] = $passengers;
         $_SESSION['state'] = 2;
         redirect('reserve2');
     } else {
         $err = 'در ثبت رزرو شما خطایی رخ داده است. لطفا مجددا تلاش فرمایید.';
-//        redirect('home?err=' . $err);
-        var_dump($sabt_passenger);
+        //redirect('home?err=' . $err);
     }
 }
 
@@ -148,72 +150,124 @@ ghh;
 $adl_bill = '';
 $chd_bill = '';
 $inf_bill = '';
+
+$b_adl_bill = '';
+$b_chd_bill = '';
+$b_inf_bill = '';
+
+$adl_price = $price['adult_price'];
+$adl_price = $adl_price + $rookeshi;
+$chd_price = $price['child_price'];
+$chd_price = $chd_price + $rookeshi;
+$adl_tax = 0;
+$chd_tax = 0;
+
+$b_adl_price = $price['badult_price'];
+$b_adl_price = $b_adl_price + $rookeshi2;
+$b_chd_price = $price['bchild_price'];
+$b_chd_price = $b_chd_price + $rookeshi2;
+$b_adl_tax = 0;
+$b_chd_tax = 0;
+
+$total_price = $price['total_price'];
+
+$adl_total_price = ($adl * $adl_price) + $adl_tax;
+$b_total_adl_price = ($adl * $b_adl_price) + $b_adl_tax;
+
+$chd_total_price = ($chd * $chd_price) + $chd_tax;
+$b_total_chd_price = ($chd * $b_chd_price) + $b_chd_tax;
+
 if ($adl != 0) {
     $adl_bill = <<<mmgh
         <tr>
             <td>
-                پرواز
+                پرواز رفت
                 (adult)
             </td>
             <td>
                 $adl نفر
             </td>
             <td>
-                1000 تومان
+               $adl_price تومان
             </td>
             <td>
-               1212
+               $adl_tax
             </td>
             <td>
-                1212142 تومان
+                $adl_total_price تومان
             </td>
         </tr>
 mmgh;
 }
+if ($adl != 0) {
+    $b_adl_bill = <<<mmgh
+        <tr>
+            <td>
+             پرواز برگشت
+                (adult)
+            </td>
+            <td>
+                $adl نفر
+            </td>
+            <td>
+                $b_adl_price تومان
+            </td>
+            <td>
+               $b_adl_tax
+            </td>
+            <td>
+                $b_total_adl_price تومان
+            </td>
+        </tr>
+mmgh;
+}
+
 if ($chd != 0) {
     $chd_bill = <<<mmgh
         <tr>
             <td>
-                پرواز
+               پرواز رفت
                 (child)
             </td>
             <td>
                 $chd نفر
             </td>
             <td>
-                564547 تومان
+                $b_chd_price تومان
             </td>
             <td>
-               57676
+               $chd_tax
             </td>
             <td>
-                69769769 تومان
+                $chd_total_price تومان
             </td>
         </tr>
 mmgh;
 }
-if ($inf != 0) {
-    $inf_bill = <<<mmgh
+if ($chd != 0) {
+    $b_chd_bill = <<<mmgh
         <tr>
             <td>
-                پرواز
-                (infant)
+                پرواز برگشت
+                (child)
             </td>
             <td>
-                $inf نفر
+                $chd نفر
             </td>
             <td>
-               5657578 تومان
+                $b_chd_price تومان
             </td>
             <td>
-                43463
+               $b_chd_tax
             </td>
             <td>
-                1000 تومان
+                $b_total_chd_price تومان
             </td>
         </tr>
 mmgh;
 }
+
+
 $tr_large = '';
 $tr_small = '';
 $no = 1;
@@ -384,7 +438,7 @@ for ($i = 0; $i < $inf; $i++) {
                             <th>شرح</th>
                             <th>تعداد</th>
                             <th>قیمت واحد</th>
-                            <th>کمیسیون</th>
+                            <th>مالیات</th>
                             <th>قابل پرداخت</th>
                         </tr>
                     </thead>
@@ -394,36 +448,26 @@ for ($i = 0; $i < $inf; $i++) {
                             <td></td>
                             <td>جمع</td>
                             <td>0</td>
-                            <td>480.000 تومان</td>
+                            <td><?php echo $total_price ?> تومان</td>
                         </tr>
                     </tfoot>
                     <tbody>
-<!--                            <tr>
-                            <td>
-                                پرواز
-                                (adult)
-                            </td>
-                            <td>
-                                2 نفر
-                            </td>
-                            <td>
-                                120.000 تومان
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                240.000 تومان
-                            </td>
-                        </tr>-->
                         <?php echo $adl_bill; ?>
                         <?php echo $chd_bill; ?>
                         <?php echo $inf_bill; ?>
                     </tbody>
+                    <?php if ($flight_info2 != NULL) { ?>
+                        <tbody>
+                            <?php echo $b_adl_bill; ?>
+                            <?php echo $b_chd_bill; ?>
+                            <?php echo $b_inf_bill; ?>
+                        </tbody>
+                    <?php } ?>
                 </table>
+
                 <button onclick="sabt(1);" class="visible-lg visible-md">ثبت رزرو</button>
                 <button onclick="sabt(0);" class="visible-sm visible-xs">ثبت رزرو</button>
-                <a href="<?php echo site_url(); ?>home">لغو رزرو</a>
+                <!--<a href="<?php echo site_url(); ?>home">لغو رزرو</a>-->
 
             </div><!--payment-box-->
         </div><!--payment-body-->
@@ -433,6 +477,7 @@ for ($i = 0; $i < $inf; $i++) {
     var all = <?php echo (int) $_SESSION['time']; ?>;
     var start_time = <?php echo $_SESSION['start_time']; ?>;
     var d = new Date();
+    var std = new Date(start_time);
     var current_time = parseInt(d.getTime() / 1000, 10);
     function sabt(i) {
         $(".warn").remove();
@@ -520,6 +565,7 @@ for ($i = 0; $i < $inf; $i++) {
     {
         d = new Date();
         current_time = parseInt(d.getTime() / 1000, 10);
+        
         if (current_time - start_time > all)
         {
             //window.location = '<?php echo site_url(); ?>home?err=پایان مهلت';
@@ -540,6 +586,7 @@ for ($i = 0; $i < $inf; $i++) {
     $(document).ready(function () {
         if (current_time - start_time > all)
         {
+            console.log(current_time,start_time,all);
             //window.location = '<?php echo site_url(); ?>home?err=پایان مهلت';
         }
         else

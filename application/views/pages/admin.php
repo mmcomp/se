@@ -17,6 +17,13 @@ function loadImage($id) {
     }
     return($out);
 }
+function sourceFn($id)
+{
+    $source = array(
+        1 => 'گوهر'
+    );
+    return((isset($source[$id]))?$source[$id]:'----');
+}
 
 $menu = '';
 $content = '';
@@ -123,6 +130,7 @@ PPPP;
                 $content = '';
                 $xgrid1->column[$gname1][1]['name'] = 'منبع';
                 $xgrid1->column[$gname1][1]['access'] = 1;
+                $xgrid1->column[$gname1][1]['cfunction'] = array('sourceFn');
                 $xgrid1->column[$gname1][2]['name'] = 'روکشی';
                 $xgrid1->canDelete[$gname1] = FALSE;
             }

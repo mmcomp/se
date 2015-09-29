@@ -20,11 +20,11 @@ if (isset($_REQUEST['adult'])) {
     $agency_id = ((int) $_REQUEST['agency_id']).','.((int) $_REQUEST['agency_id2']);
     $source_id = ((int) $_REQUEST['source_id']).','.((int) $_REQUEST['source_id2']);
     $flight_id = ((int) $_REQUEST['sel_flight_id']).','.((int) $_REQUEST['sel_flight_id2']);
-    $flight_id = '191';//'191,191'; //Test
-    $agency_id = '724';//'724,724'; //Test
-    $source_id = '1';//'1,1';//Test
+    $flight_id = '191,191';//'191,191'; //Test
+    $agency_id = '724,724';//'724,724'; //Test
+    $source_id = '1,1';//'1,1';//Test
     $ncap = ((int) $_REQUEST['ncap']).','.((int) $_REQUEST['ncap2']);
-    $ncap = '1';//'1,1'; //test
+    $ncap = '1,1';//'1,1'; //test
     $out = $res->preReserve($source_id, $flight_id, $ncap, $class_ghimat, $adl, $chd, $inf, $ip, $agency_id);
     $data = urlencode(trim($_REQUEST['sel_data']));
     $data2 = urlencode(trim($_REQUEST['sel_data2']));
@@ -44,7 +44,7 @@ if (isset($_REQUEST['adult'])) {
         {
             $_SESSION['data2'] = rawurldecode($data2);
         }
-        $_SESSION['gdata'] = $out['gdata'];
+        $_SESSION['price'] = $out['price'];
         $_SESSION['time'] = 600;
         $_SESSION['state'] = 1;
         redirect('reserve1');
