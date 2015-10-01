@@ -1,4 +1,22 @@
 <?php
+if (isset($_REQUEST['State'])) {
+    $State = $_REQUEST['State'];
+    $ResNum = $_REQUEST['ResNum'];
+    $MID = $_REQUEST['MID'];
+    $RefNum = $_REQUEST['RefNum'];
+    $CID = $_REQUEST['CID'];
+    $TRACENO = $_REQUEST['TRACENO'];
+    $bank_result = $_REQUEST;
+    $my = new mysql_class();
+    $en = ($State != 'OK') ? 1 : 2;
+    $my->ex_sqlx("update reserve set en = $en , bank_result = '" . json_encode($bank_result) . "' where id = $ResNum");
+    if($en==2)
+    {
+        redirect("home?err=در پرداخت شما مشکلی پیش آمد در صورت کم شدن مبلغ به حساب شما بر خواهد گشت");
+    }
+} else {
+    die('Access ERROR.');
+}
 $voucher_id = $_SESSION['voucher_id'];
 $voucher = $voucher_id[0] . ((count($voucher_id) == 2) ? '-' . $voucher_id[1] : '');
 $refrence_id = $_SESSION['refrence_id'];
@@ -15,36 +33,7 @@ $extra_info = $_SESSION['extra_info'];
 $email = $_SESSION['email'];
 $flight_info = json_decode($data);
 $flight_info2 = json_decode($data2);
-$user_id = -1;
-if (isset($_REQUEST['bank'])) {
-    $SamanMID = "10156488";
-    $url = "http://185.55.225.70/saman/purchase.php";
-//    $url = site_url() . "reserve3";
-    $out = new stdClass();
-    $out->form = '';
-    $out->id = '';
-    if (isset($_SESSION['tprice'])) {
-        $tprice = (int) $_SESSION['tprice'];
-        $aprice = (int) $_SESSION['aprice'];
-        if ($tprice > 1000) {
-            $my = new mysql_class;
-            $ln = $my->ex_sqlx("insert into reserve (refrence_id,total_asli,total_moshtari,user_id) values ($refrence_id,$aprice,$tprice,$user_id)", FALSE);
-            $rid = $my->insert_id($ln);
-            $my->close($ln);
-            $frm = <<<FORM
-                <form method="post" action="https://sep.shaparak.ir/Payment.aspx" id="frmsaman$tprice">
-                    <input name="ResNum"  type="hidden"  value="$rid">
-                    <input name="Amount"  type="hidden"  value="$tprice">
-                    <input name="MID" value="$SamanMID" type="hidden"/><br>
-                    <input name="RedirectURL" value="$url" type="hidden"/>
-                </form>
-FORM;
-            $out->form = $frm;
-            $out->id = "frmsaman$tprice";
-        }
-    }
-    die(json_encode($out));
-}
+
 $tr = <<<mmcomp
 <tr>
     <td>#no#</td>
@@ -205,50 +194,6 @@ for ($i = 0; $i < count($passengers); $i++) {
                 <li class="visible-sm-inline-block visible-xs-block"><span>ساعت ورود : </span>5:45</li>
             </ul>
         </div><!--flight-summery-small-->
-        <div class="col-lg-12 col-md-12 col-sm-8 col-xs-12 financial-info-body" style="margin-bottom: 10px;">
-            <header>اطلاعات مالی</header>
-            <div class="financial-info-box">
-                <div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>قیمت کل</th>
-                                <th>کمیسیون</th>
-                                <th>قابل پرداخت</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>480.000 تومان</td>
-                                <td>0 تومان</td>
-                                <td>480.000 تومان</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button>لغو رزرو</button>
-                </div>
-                <span class="visible-lg visible-md">
-                    در صورت تمایل به پرداخت از طریق شبکه شتاب لطفا<br>
-                    از این سامانه اقدام نمایید.
-                    <br>
-                    اگر ظرف 15 دقیقه پرداخت صورت نگیرد رزرو شما<br>
-                    توسط سیستم لغو می گردد.
-                </span>
-                <span class="visible-sm visible-xs" style="width: 100%; padding: 0; text-align: center;">
-                    در صورت تمایل به پرداخت از طریق شبکه شتاب لطفا<br>
-                    از این سامانه اقدام نمایید.
-                    <br>
-                    اگر ظرف 15 دقیقه پرداخت صورت نگیرد رزرو شما<br>
-                    توسط سیستم لغو می گردد.
-                </span>
-                <a class="hidden-sm hidden-xs" href="#"><img src="<?php echo asset_url() ?>/images/img/mellat.png"></a>
-                <a class="hidden-sm hidden-xs" onclick="sendBankSaman();" href="#"><img src="<?php echo asset_url() ?>/images/img/saman.png"></a>
-                <span class="visible-sm visible-xs" style="text-align: center; float: none; padding: 0;">
-                    <a href="#"><img style="float: none; width: 120px;" src="<?php echo asset_url() ?>/images/img/mellat.png"></a>
-                    <a  onclick="sendBankSaman();" href="#"><img style="float: none; width: 120px;" src="<?php echo asset_url() ?>/images/img/saman.png"></a>
-                </span>
-            </div><!--passenger-info-box-->
-        </div><!--financial-info-body-->
         <div class="col-lg-12 col-md-12 col-sm-8 col-xs-12 passenger-info-body" style="margin-bottom: 10px;">
             <header>اطلاعات مسافران</header>
             <div class="passenger-info-box">
@@ -328,16 +273,3 @@ for ($i = 0; $i < count($passengers); $i++) {
         </div><!--passenger-info-body-->
     </div>
 </div>
-<script>
-    function sendBankSaman() {
-        $.getJSON('<?php echo site_url(); ?>reserve2?bank=bank', function (res) {
-            console.log(res);
-            if (typeof res.form !== 'undefined' && res.form !== '')
-            {
-                $(document.body).append(res.form);
-                $("#" + res.id).submit();
-            }
-            //document.getElementById('frmsaman').submit();
-        });
-    }
-</script>

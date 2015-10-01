@@ -30,8 +30,6 @@ if (!isset($_SESSION['start_time'])) {
 }
 $start_time = $_SESSION['start_time'];
 $now = time();
-//var_dump($_SESSION);
-//die();
 if ($now - $start_time > $time) {
     redirect("home?err=زمان به پایان رسید");
 }
@@ -68,6 +66,10 @@ if (isset($_REQUEST['gender'])) {
     var_dump($passenger);
     if ($sabt_passenger['err']['code'] == 0) {
         $_SESSION ['passengers'] = $passengers;
+        $_SESSION['address'] = $address;
+        $_SESSION['email'] = $email;
+        $_SESSION['mobile'] = $mobile;
+        $_SESSION['extra_info'] = $extra_info;
         $_SESSION['state'] = 2;
         redirect('reserve2');
     } else {
@@ -98,7 +100,7 @@ $tr = <<<mmcomp
                 <input name="shomare_melli[]" type="text" class="inp1 shomare_melli_passport">
                 <input name="passport_engheza[]" type="text" placeholder="انقضای پاسپورت" title="بصورت : روز-ماه-سال" class="inp1 passport_engheza">
             </td>
-            <td><input name="birthday[]" type="text" title="بصورت : روز-ماه-سال" placeholder="بصورت : روز-ماه-سال" class="inp1 birthday"></td>
+            <td><input name="birthday[]" type="text" title="بصورت : روز-ماه-سال" placeholder=" روز-ماه-سال" class="inp1 birthday"></td>
         </tr>
 mmcomp;
 
@@ -143,7 +145,7 @@ $trs = <<<ghh
             </tr>
             <tr style="border-bottom: 2px solid #ddd;">
                 <td>تاریخ تولد</td>
-                <td><input name="birthday[]" type="text" title="بصورت : روز-ماه-سال" placeholder="بصورت : روز-ماه-سال" class="inp2 birthday"></td>
+                <td><input name="birthday[]" type="text" title="بصورت : روز-ماه-سال" placeholder=" روز-ماه-سال" class="inp2 birthday"></td>
             </tr>
 ghh;
 
@@ -155,27 +157,33 @@ $b_adl_bill = '';
 $b_chd_bill = '';
 $b_inf_bill = '';
 
-$adl_price = $price['adult_price'];
-$adl_price = $adl_price + $rookeshi;
-$chd_price = $price['child_price'];
-$chd_price = $chd_price + $rookeshi;
+//parvaz raft price
 $adl_tax = 0;
 $chd_tax = 0;
+$inf_tax = 0;
+$adl_price = $price['adult_price'] + $rookeshi;
+$chd_price = $price['child_price'] + $rookeshi;
+$inf_price = $price['inf_price'] + $rookeshi;
+$adl_total_price = ($adl_tax + $adl_price) * $adl;
+$chd_total_price = ($chd_tax + $chd_price) * $chd;
+$inf_total_price = ($inf_tax + $inf_price) * $inf;
+$total_price = $adl_total_price + $chd_total_price + $inf_total_price;
 
-$b_adl_price = $price['badult_price'];
-$b_adl_price = $b_adl_price + $rookeshi2;
-$b_chd_price = $price['bchild_price'];
-$b_chd_price = $b_chd_price + $rookeshi2;
+
+//parvaz bargasht price
 $b_adl_tax = 0;
 $b_chd_tax = 0;
+$b_inf_tax = 0;
+$b_adl_price = $price['badult_price'] + $rookeshi2;
+$b_chd_price = $price['bchild_price'] + $rookeshi2;
+$b_inf_price = $price['binf_price'] + $rookeshi2;
+$b_adl_total_price = ($b_adl_tax + $b_adl_price) * $adl;
+$b_chd_total_price = ($b_chd_tax + $b_chd_price) * $chd;
+$b_inf_total_price = ($b_inf_tax + $b_inf_price) * $inf;
+$b_total_price = $adl_total_price + $chd_total_price + $inf_total_price + $b_adl_total_price + $b_chd_total_price + $b_inf_total_price;
 
-$total_price = $price['total_price'];
-
-$adl_total_price = ($adl * $adl_price) + $adl_tax;
-$b_total_adl_price = ($adl * $b_adl_price) + $b_adl_tax;
-
-$chd_total_price = ($chd * $chd_price) + $chd_tax;
-$b_total_chd_price = ($chd * $b_chd_price) + $b_chd_tax;
+$_SESSION['tprice'] = (isset($_SESSION['data2']))?$b_total_price:$total_price;
+$_SESSION['aprice'] = $price['total_price'];
 
 if ($adl != 0) {
     $adl_bill = <<<mmgh
@@ -198,8 +206,7 @@ if ($adl != 0) {
             </td>
         </tr>
 mmgh;
-}
-if ($adl != 0) {
+
     $b_adl_bill = <<<mmgh
         <tr>
             <td>
@@ -216,7 +223,7 @@ if ($adl != 0) {
                $b_adl_tax
             </td>
             <td>
-                $b_total_adl_price تومان
+                $b_adl_total_price تومان
             </td>
         </tr>
 mmgh;
@@ -233,7 +240,7 @@ if ($chd != 0) {
                 $chd نفر
             </td>
             <td>
-                $b_chd_price تومان
+                $chd_price تومان
             </td>
             <td>
                $chd_tax
@@ -243,8 +250,7 @@ if ($chd != 0) {
             </td>
         </tr>
 mmgh;
-}
-if ($chd != 0) {
+
     $b_chd_bill = <<<mmgh
         <tr>
             <td>
@@ -261,7 +267,50 @@ if ($chd != 0) {
                $b_chd_tax
             </td>
             <td>
-                $b_total_chd_price تومان
+                $b_chd_total_price تومان
+            </td>
+        </tr>
+mmgh;
+}
+if ($inf != 0) {
+    $inf_bill = <<<mmgh
+        <tr>
+            <td>
+               پرواز رفت
+                (infant)
+            </td>
+            <td>
+                $inf نفر
+            </td>
+            <td>
+                $inf_price تومان
+            </td>
+            <td>
+               $inf_tax
+            </td>
+            <td>
+                $inf_total_price تومان
+            </td>
+        </tr>
+mmgh;
+
+    $b_inf_bill = <<<mmgh
+        <tr>
+            <td>
+                پرواز برگشت
+                (infant)
+            </td>
+            <td>
+                $inf نفر
+            </td>
+            <td>
+                $b_inf_price تومان
+            </td>
+            <td>
+               $b_inf_tax
+            </td>
+            <td>
+                $b_inf_total_price تومان
             </td>
         </tr>
 mmgh;
@@ -448,7 +497,15 @@ for ($i = 0; $i < $inf; $i++) {
                             <td></td>
                             <td>جمع</td>
                             <td>0</td>
-                            <td><?php echo $total_price ?> تومان</td>
+                            <td>
+                                <?php
+                                if ($flight_info2 != NULL) {
+                                    echo $b_total_price . ' تومان';
+                                } else {
+                                    echo $total_price . ' تومان';
+                                }
+                                ?>
+                            </td>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -467,7 +524,9 @@ for ($i = 0; $i < $inf; $i++) {
 
                 <button onclick="sabt(1);" class="visible-lg visible-md">ثبت رزرو</button>
                 <button onclick="sabt(0);" class="visible-sm visible-xs">ثبت رزرو</button>
-                <!--<a href="<?php echo site_url(); ?>home">لغو رزرو</a>-->
+                <form action="home">
+                    <button class="">لغو رزرو</button>
+                </form>
 
             </div><!--payment-box-->
         </div><!--payment-body-->
@@ -553,6 +612,7 @@ for ($i = 0; $i < $inf; $i++) {
     var timer;
     function createTime(inp)
     {
+//        console.log(inp);
         var m = (inp - (inp % 60)) / 60;
         var s = inp % 60;
         if (m < 10)
@@ -565,12 +625,12 @@ for ($i = 0; $i < $inf; $i++) {
     {
         d = new Date();
         current_time = parseInt(d.getTime() / 1000, 10);
-        
+
         if (current_time - start_time > all)
         {
-            //window.location = '<?php echo site_url(); ?>home?err=پایان مهلت';
             $(".container").html('<a href="<?php echo site_url(); ?>home?err=پایان مهلت ورود اطلاعات">بازگشت</a>');
             alert('مهلت شما به پایان رسید');
+            window.location = '<?php echo site_url(); ?>home?err=پایان مهلت';
         }
         else
         {
@@ -584,26 +644,6 @@ for ($i = 0; $i < $inf; $i++) {
 
     }
     $(document).ready(function () {
-        if (current_time - start_time > all)
-        {
-            console.log(current_time,start_time,all);
-            //window.location = '<?php echo site_url(); ?>home?err=پایان مهلت';
-        }
-        else
-        {
-            fn();
-        }
-//        $(".inp").blur(function(){
-//            var obj = $(this);
-//            var val = obj.val();
-//            if(obj.hasClass("lname"))
-//            {
-//                if(String(val).length<3)
-//                {
-//                    obj.css("border","red solid 1px");
-//                }
-//                
-//            }
-//        });
+        fn();
     });
 </script>
