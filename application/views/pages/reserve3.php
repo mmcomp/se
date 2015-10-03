@@ -7,13 +7,35 @@ if (isset($_REQUEST['State'])) {
     $CID = $_REQUEST['CID'];
     $TRACENO = $_REQUEST['TRACENO'];
     $bank_result = $_REQUEST;
+    $refrence_id = 0;
+    $en = ($State == 'OK') ? 1 : 2;
     $my = new mysql_class();
-    $en = ($State != 'OK') ? 1 : 2;
+//    echo "select refrence_id from reserve where id = $ResNum";
+    $my->ex_sql("select refrence_id from reserve where id = $ResNum", $q);
+    if(isset($q[0]))
+    {
+        $refrence_id = (int)$q[0]['refrence_id'];
+    }
+    else
+    {
+        $en = 3;
+    }
+//    echo "refId = $refrence_id<br/>\n";
+//    echo "update reserve set en = $en , bank_result = '" . json_encode($bank_result) . "' where id = $ResNum";
     $my->ex_sqlx("update reserve set en = $en , bank_result = '" . json_encode($bank_result) . "' where id = $ResNum");
     if($en==2)
     {
-        redirect("home?err=در پرداخت شما مشکلی پیش آمد در صورت کم شدن مبلغ به حساب شما بر خواهد گشت");
+//        echo "Canceled";
+//        var_dump($_REQUEST);
+        redirect("home?err=در پرداخت شما مشکلی پیش آمد در صورت کم شدن مبلغ به حساب شما بر خواهد گشت"."\n"."کد رهگیری : $refrence_id");
     }
+    else if($en == 1)
+    {
+//        echo "DONE";
+        $out = reserve_class::confirm($refrence_id);
+//        var_dump($out);
+    }
+//    die();
 } else {
     die('Access ERROR.');
 }

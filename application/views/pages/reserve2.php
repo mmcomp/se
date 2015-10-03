@@ -19,7 +19,7 @@ $user_id = -1;
 if (isset($_REQUEST['bank'])) {
     $SamanMID = "10156488";
     $url = "http://185.55.225.70/saman/purchase.php";
-//    $url = site_url() . "reserve3";
+    $url = "http://185.55.225.70/ticketyab/reserve3";
     $out = new stdClass();
     $out->form = '';
     $out->id = '';
@@ -27,6 +27,7 @@ if (isset($_REQUEST['bank'])) {
         $tprice = (int) $_SESSION['tprice'];
         $aprice = (int) $_SESSION['aprice'];
         if ($tprice > 1000) {
+            $tprice = 1000;
             $my = new mysql_class;
             $ln = $my->ex_sqlx("insert into reserve (refrence_id,total_asli,total_moshtari,user_id) values ($refrence_id,$aprice,$tprice,$user_id)", FALSE);
             $rid = $my->insert_id($ln);
@@ -337,7 +338,10 @@ for ($i = 0; $i < count($passengers); $i++) {
                 $(document.body).append(res.form);
                 $("#" + res.id).submit();
             }
-            //document.getElementById('frmsaman').submit();
+            else
+            {
+                window.location = '<?php echo site_url(); ?>home?err=خطا در ارتباط با بانک لطفا مجددا سعی نمایید';
+            }
         });
     }
 </script>
