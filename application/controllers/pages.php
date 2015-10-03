@@ -47,9 +47,13 @@ class Pages extends CI_Controller {
         $data['p2'] = $p2;
         $ckeditor_pages = array('admin');
         $data['has_ckeditor'] = in_array($page, $ckeditor_pages);
-        $this->load->view('templates/header', $data);
-        $this->load->view('pages/' . $page, $data);
-        $this->load->view('templates/footer', $data);
+        if ($page != 'ticket') {
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/' . $page, $data);
+            $this->load->view('templates/footer', $data);
+        } else {
+            $this->load->view('pages/' . $page, $data);
+        }
     }
 
     public function setVisitor($inp) {

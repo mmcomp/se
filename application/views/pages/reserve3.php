@@ -12,25 +12,20 @@ if (isset($_REQUEST['State'])) {
     $my = new mysql_class();
 //    echo "select refrence_id from reserve where id = $ResNum";
     $my->ex_sql("select refrence_id from reserve where id = $ResNum", $q);
-    if(isset($q[0]))
-    {
-        $refrence_id = (int)$q[0]['refrence_id'];
-    }
-    else
-    {
+    if (isset($q[0])) {
+        $refrence_id = (int) $q[0]['refrence_id'];
+    } else {
         $en = 3;
     }
 //    echo "refId = $refrence_id<br/>\n";
 //    echo "update reserve set en = $en , bank_result = '" . json_encode($bank_result) . "' where id = $ResNum";
     $my->ex_sqlx("update reserve set en = $en , bank_result = '" . json_encode($bank_result) . "' where id = $ResNum");
-    if($en==2)
-    {
+    if ($en == 2) {
 //        echo "Canceled";
 //        var_dump($_REQUEST);
-        redirect("home?err=در پرداخت شما مشکلی پیش آمد در صورت کم شدن مبلغ به حساب شما بر خواهد گشت"."\n"."کد رهگیری : $refrence_id");
-    }
-    else if($en == 1)
-    {
+        //redirect("home?err=در پرداخت شما مشکلی پیش آمد در صورت کم شدن مبلغ به حساب شما بر خواهد گشت"."\n"."کد رهگیری : $refrence_id");
+        echo('در پرداخت شما با پیام زیر خطایی رخ داده :' . "<br/>\n" . $State . '<br/><a href="' . site_url() . 'home">بازگشت</a>');
+    } else if ($en == 1) {
 //        echo "DONE";
         $out = reserve_class::confirm($refrence_id);
 //        var_dump($out);
@@ -157,141 +152,144 @@ for ($i = 0; $i < count($passengers); $i++) {
     $no++;
 }
 ?>
-
-<div class="container" style="margin: 10px auto;">
-    <div class="row">
-        <div class="col-sm-12 refvouch-body" style="margin-bottom: 10px;">
-            <header>
-                <div>
-                    رفرنس : 
-                    <span style="padding-left: 20px;"><?php echo $refrence_id ?></span>
-                    واچر : 
-                    <span><?php echo $voucher ?></span>
-                </div>
-            </header>
-        </div><!--reserve-countdown-->
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 hidden-sm hidden-xs flight-summery-body" style="margin-bottom: 10px;">
-            <header>اطلاعات پرواز</header>
-            <ul>
-                <li class="visible-lg-inline-block visible-md-inline-block"><span>مبدا : </span><?php echo $flight_info->from_city; ?></li>
-                <li class="visible-lg-inline-block visible-md-inline-block"><span>مقصد : </span><?php echo $flight_info->to_city; ?></li>
-                <li class="visible-lg-inline-block visible-md-inline-block"><span>تاریخ : </span><?php echo $flight_info->fdate; ?></li>
-                <li class="visible-lg-inline-block visible-md-inline-block"><span>ایرلاین : </span><?php echo $flight_info->airline; ?></li>
-                <li class="visible-lg-inline-block visible-md-inline-block"><span>شماره پرواز : </span><?php echo $flight_info->flight_number; ?></li>
-                <li class="visible-lg-inline-block visible-md-inline-block"><span>ساعت خروج :</span><?php echo $flight_info->ftime; ?></li>
-                <li class="visible-lg-inline-block visible-md-inline-block"><span>ساعت ورود : </span><?php echo $flight_info->ltime; ?></li>
-            </ul>
-            <?php if ($flight_info2 != NULL) { ?>
+<?php if ($en == 1) { ?>
+    <div class="container" style="margin: 10px auto;">
+        <div class="row">
+            <div class="col-sm-12 refvouch-body" style="margin-bottom: 10px;">
+                <header>
+                    <div>
+                        رفرنس : 
+                        <span style="padding-left: 20px;"><?php echo $refrence_id ?></span>
+                        واچر : 
+                        <span><?php echo $voucher ?></span>
+                        <br/>
+                        <a target="_blank" href="<?php echo site_url() . 'ticket/' . $refrence_id; ?>">چاپ بلیت</a>
+                    </div>
+                </header>
+            </div><!--reserve-countdown-->
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 hidden-sm hidden-xs flight-summery-body" style="margin-bottom: 10px;">
+                <header>اطلاعات پرواز</header>
                 <ul>
-                    <li class="visible-lg-inline-block visible-md-inline-block"><span>مبدا : </span><?php echo $flight_info2->from_city; ?></li>
-                    <li class="visible-lg-inline-block visible-md-inline-block"><span>مقصد : </span><?php echo $flight_info2->to_city; ?></li>
-                    <li class="visible-lg-inline-block visible-md-inline-block"><span>تاریخ : </span><?php echo $flight_info2->fdate; ?></li>
-                    <li class="visible-lg-inline-block visible-md-inline-block"><span>ایرلاین : </span><?php echo $flight_info2->airline; ?></li>
-                    <li class="visible-lg-inline-block visible-md-inline-block"><span>شماره پرواز : </span><?php echo $flight_info2->flight_number; ?></li>
-                    <li class="visible-lg-inline-block visible-md-inline-block"><span>ساعت خروج :</span><?php echo $flight_info2->ftime; ?></li>
-                    <li class="visible-lg-inline-block visible-md-inline-block"><span>ساعت ورود : </span><?php echo $flight_info2->ltime; ?></li>
+                    <li class="visible-lg-inline-block visible-md-inline-block"><span>مبدا : </span><?php echo $flight_info->from_city; ?></li>
+                    <li class="visible-lg-inline-block visible-md-inline-block"><span>مقصد : </span><?php echo $flight_info->to_city; ?></li>
+                    <li class="visible-lg-inline-block visible-md-inline-block"><span>تاریخ : </span><?php echo $flight_info->fdate; ?></li>
+                    <li class="visible-lg-inline-block visible-md-inline-block"><span>ایرلاین : </span><?php echo $flight_info->airline; ?></li>
+                    <li class="visible-lg-inline-block visible-md-inline-block"><span>شماره پرواز : </span><?php echo $flight_info->flight_number; ?></li>
+                    <li class="visible-lg-inline-block visible-md-inline-block"><span>ساعت خروج :</span><?php echo $flight_info->ftime; ?></li>
+                    <li class="visible-lg-inline-block visible-md-inline-block"><span>ساعت ورود : </span><?php echo $flight_info->ltime; ?></li>
                 </ul>
-            <?php } ?>
-        </div><!--flight-summery-large-->
-        <div class="col-sm-4 col-xs-12 hidden-lg hidden-md flight-summery-body">
-            <header>اطلاعات پرواز</header>
-            <ul style="text-align: right;">
-                <li class="visible-sm-inline-block visible-xs-block"><span>مبدا : </span>مشهد</li>
-                <li class="visible-sm-inline-block visible-xs-block"><span>مقصد : </span>کوالالامپور</li>
-                <li class="visible-sm-inline-block visible-xs-block"><span>تاریخ : </span>1395/6/21</li>
-                <li class="visible-sm-inline-block visible-xs-block"><span>ایرلاین : </span>آسمان</li>
-                <li class="visible-sm-inline-block visible-xs-block"><span>شماره پرواز : </span>5698</li>
-                <li class="visible-sm-inline-block visible-xs-block"><span>ساعت خروج :</span>22:45</li>
-                <li class="visible-sm-inline-block visible-xs-block"><span>ساعت ورود : </span>5:45</li>
-            </ul>
-            <ul style="text-align: right;">
-                <li class="visible-sm-inline-block visible-xs-block"><span>مبدا : </span>کوالالامپور</li>
-                <li class="visible-sm-inline-block visible-xs-block"><span>مقصد : </span>مشهد</li>
-                <li class="visible-sm-inline-block visible-xs-block"><span>تاریخ : </span>1395/6/21</li>
-                <li class="visible-sm-inline-block visible-xs-block"><span>ایرلاین : </span>آسمان</li>
-                <li class="visible-sm-inline-block visible-xs-block"><span>شماره پرواز : </span>5698</li>
-                <li class="visible-sm-inline-block visible-xs-block"><span>ساعت خروج :</span>22:45</li>
-                <li class="visible-sm-inline-block visible-xs-block"><span>ساعت ورود : </span>5:45</li>
-            </ul>
-        </div><!--flight-summery-small-->
-        <div class="col-lg-12 col-md-12 col-sm-8 col-xs-12 passenger-info-body" style="margin-bottom: 10px;">
-            <header>اطلاعات مسافران</header>
-            <div class="passenger-info-box">
-                <table class="visible-lg visible-md table passenger-info-table-large">
-                    <thead>
-                        <tr>
-                            <th>ردیف</th>
-                            <th>سن</th>
-                            <th>جنسیت</th>
-                            <th>نام</th>
-                            <th>نام خانوادگی</th>
-                            <th>شماره ملی - شماره پاسپورت</th>
-                            <th>تاریخ تولد</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php echo $tr_large ?>
-                    </tbody>
-                </table>
+    <?php if ($flight_info2 != NULL) { ?>
+                    <ul>
+                        <li class="visible-lg-inline-block visible-md-inline-block"><span>مبدا : </span><?php echo $flight_info2->from_city; ?></li>
+                        <li class="visible-lg-inline-block visible-md-inline-block"><span>مقصد : </span><?php echo $flight_info2->to_city; ?></li>
+                        <li class="visible-lg-inline-block visible-md-inline-block"><span>تاریخ : </span><?php echo $flight_info2->fdate; ?></li>
+                        <li class="visible-lg-inline-block visible-md-inline-block"><span>ایرلاین : </span><?php echo $flight_info2->airline; ?></li>
+                        <li class="visible-lg-inline-block visible-md-inline-block"><span>شماره پرواز : </span><?php echo $flight_info2->flight_number; ?></li>
+                        <li class="visible-lg-inline-block visible-md-inline-block"><span>ساعت خروج :</span><?php echo $flight_info2->ftime; ?></li>
+                        <li class="visible-lg-inline-block visible-md-inline-block"><span>ساعت ورود : </span><?php echo $flight_info2->ltime; ?></li>
+                    </ul>
+    <?php } ?>
+            </div><!--flight-summery-large-->
+            <div class="col-sm-4 col-xs-12 hidden-lg hidden-md flight-summery-body">
+                <header>اطلاعات پرواز</header>
+                <ul style="text-align: right;">
+                    <li class="visible-sm-inline-block visible-xs-block"><span>مبدا : </span>مشهد</li>
+                    <li class="visible-sm-inline-block visible-xs-block"><span>مقصد : </span>کوالالامپور</li>
+                    <li class="visible-sm-inline-block visible-xs-block"><span>تاریخ : </span>1395/6/21</li>
+                    <li class="visible-sm-inline-block visible-xs-block"><span>ایرلاین : </span>آسمان</li>
+                    <li class="visible-sm-inline-block visible-xs-block"><span>شماره پرواز : </span>5698</li>
+                    <li class="visible-sm-inline-block visible-xs-block"><span>ساعت خروج :</span>22:45</li>
+                    <li class="visible-sm-inline-block visible-xs-block"><span>ساعت ورود : </span>5:45</li>
+                </ul>
+                <ul style="text-align: right;">
+                    <li class="visible-sm-inline-block visible-xs-block"><span>مبدا : </span>کوالالامپور</li>
+                    <li class="visible-sm-inline-block visible-xs-block"><span>مقصد : </span>مشهد</li>
+                    <li class="visible-sm-inline-block visible-xs-block"><span>تاریخ : </span>1395/6/21</li>
+                    <li class="visible-sm-inline-block visible-xs-block"><span>ایرلاین : </span>آسمان</li>
+                    <li class="visible-sm-inline-block visible-xs-block"><span>شماره پرواز : </span>5698</li>
+                    <li class="visible-sm-inline-block visible-xs-block"><span>ساعت خروج :</span>22:45</li>
+                    <li class="visible-sm-inline-block visible-xs-block"><span>ساعت ورود : </span>5:45</li>
+                </ul>
+            </div><!--flight-summery-small-->
+            <div class="col-lg-12 col-md-12 col-sm-8 col-xs-12 passenger-info-body" style="margin-bottom: 10px;">
+                <header>اطلاعات مسافران</header>
+                <div class="passenger-info-box">
+                    <table class="visible-lg visible-md table passenger-info-table-large">
+                        <thead>
+                            <tr>
+                                <th>ردیف</th>
+                                <th>سن</th>
+                                <th>جنسیت</th>
+                                <th>نام</th>
+                                <th>نام خانوادگی</th>
+                                <th>شماره ملی - شماره پاسپورت</th>
+                                <th>تاریخ تولد</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+    <?php echo $tr_large ?>
+                        </tbody>
+                    </table>
 
-                <table class="visible-sm visible-xs table passenger-info-table-small">
-                    <?php echo $tr_small ?>
-                </table>
-                <table class="visible-lg visible-md passenger-extra-info-large">
-                    <thead>
+                    <table class="visible-sm visible-xs table passenger-info-table-small">
+                            <?php echo $tr_small ?>
+                    </table>
+                    <table class="visible-lg visible-md passenger-extra-info-large">
+                        <thead>
+                            <tr>
+                                <th>تلفن همراه</th>
+                                <th>آدرس</th>
+                                <th>پست الکترونیک</th>
+                                <th>ملاحظات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+    <?php echo $mobile ?>                            
+                                </td>
+                                <td>
+    <?php echo $address ?>
+                                </td>
+                                <td>
+                                    <?php echo $email ?>
+                                </td>
+                                <td>
+                                    <?php echo $extra_info ?>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="visible-sm visible-xs passenger-extra-info-small">
                         <tr>
-                            <th>تلفن همراه</th>
-                            <th>آدرس</th>
-                            <th>پست الکترونیک</th>
-                            <th>ملاحظات</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
+                            <td>تلفن همراه</td>
                             <td>
-                                <?php echo $mobile ?>                            
+    <?php echo $mobile ?>
                             </td>
+                        </tr>
+                        <tr>
+                            <td>آدرس</td>
                             <td>
                                 <?php echo $address ?>
                             </td>
+                        </tr>
+                        <tr>
+                            <td>پست الکترونیک</td>
                             <td>
                                 <?php echo $email ?>
                             </td>
+                        </tr>
+                        <tr>
+                            <td>ملاحظات</td>
                             <td>
                                 <?php echo $extra_info ?>
                             </td>
                         </tr>
-                    </tbody>
-                </table>
-                <table class="visible-sm visible-xs passenger-extra-info-small">
-                    <tr>
-                        <td>تلفن همراه</td>
-                        <td>
-                            <?php echo $mobile ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>آدرس</td>
-                        <td>
-                            <?php echo $address ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>پست الکترونیک</td>
-                        <td>
-                            <?php echo $email ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>ملاحظات</td>
-                        <td>
-                            <?php echo $extra_info ?>
-                        </td>
-                    </tr>
-                </table>
-            </div><!--passenger-info-box-->
-        </div><!--passenger-info-body-->
+                    </table>
+                </div><!--passenger-info-box-->
+            </div><!--passenger-info-body-->
+        </div>
     </div>
-</div>
+<?php } ?>

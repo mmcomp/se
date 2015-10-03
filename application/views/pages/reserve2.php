@@ -18,8 +18,8 @@ $flight_info2 = json_decode($data2);
 $user_id = -1;
 if (isset($_REQUEST['bank'])) {
     $SamanMID = "10156488";
-    $url = "http://185.55.225.70/saman/purchase.php";
-    $url = "http://185.55.225.70/ticketyab/reserve3";
+    //$url = "http://185.55.225.70/saman/purchase.php";
+    $url = "http://ticketyab724.ir/reserve3";
     $out = new stdClass();
     $out->form = '';
     $out->id = '';
