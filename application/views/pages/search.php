@@ -20,7 +20,7 @@ if (isset($_REQUEST['adult'])) {
     $agency_id = ((int) $_REQUEST['agency_id']).','.((int) $_REQUEST['agency_id2']);
     $source_id = ((int) $_REQUEST['source_id']).','.((int) $_REQUEST['source_id2']);
     $flight_id = ((int) $_REQUEST['sel_flight_id']).','.((int) $_REQUEST['sel_flight_id2']);
-    $flight_id = '191,191';//'191,191'; //Test
+    $flight_id = '1,2';//'191,191'; //Test
     $agency_id = '724,724';//'724,724'; //Test
     $source_id = '1,1';//'1,1';//Test
     $ncap = ((int) $_REQUEST['ncap']).','.((int) $_REQUEST['ncap2']);

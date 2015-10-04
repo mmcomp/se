@@ -27,9 +27,8 @@ if (isset($_REQUEST['bank'])) {
         $tprice = (int) $_SESSION['tprice'];
         $aprice = (int) $_SESSION['aprice'];
         if ($tprice > 1000) {
-            $tprice = 1000;
             $my = new mysql_class;
-            $ln = $my->ex_sqlx("insert into reserve (refrence_id,total_asli,total_moshtari,user_id) values ($refrence_id,$aprice,$tprice,$user_id)", FALSE);
+            $ln = $my->ex_sqlx("insert into reserve (refrence_id,total_asli,total_moshtari,user_id,tarikh) values ($refrence_id,$aprice,$tprice,$user_id,'".date("Y-m-d H:i:s")."')", FALSE);
             $rid = $my->insert_id($ln);
             $my->close($ln);
             $frm = <<<FORM

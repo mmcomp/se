@@ -19,7 +19,7 @@ if (isset($_REQUEST['State'])) {
     }
 //    echo "refId = $refrence_id<br/>\n";
 //    echo "update reserve set en = $en , bank_result = '" . json_encode($bank_result) . "' where id = $ResNum";
-    $my->ex_sqlx("update reserve set en = $en , bank_result = '" . json_encode($bank_result) . "' where id = $ResNum");
+    $my->ex_sqlx("update reserve set en = $en , bank_result = '" . json_encode($bank_result) . "', tarikh = '".date("Y-m-d H:i:s")."' where id = $ResNum");
     if ($en == 2) {
 //        echo "Canceled";
 //        var_dump($_REQUEST);

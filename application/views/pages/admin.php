@@ -17,12 +17,17 @@ function loadImage($id) {
     }
     return($out);
 }
-function sourceFn($id)
-{
+
+function sourceFn($id) {
     $source = array(
         1 => 'گوهر'
     );
-    return((isset($source[$id]))?$source[$id]:'----');
+    return((isset($source[$id])) ? $source[$id] : '----');
+}
+
+function load_date($inp)
+{
+    return(($inp!='' && $inp!='0000-00-00 00:00:00')?jdate("H:i - d / m / Y",  strtotime($inp)):'----');
 }
 
 $menu = '';
@@ -92,6 +97,9 @@ PPPP;
         ),
         array(
             "gname_rookeshi" => array('table' => 'rookeshi', 'div' => 'div_rookeshi')
+        ),
+        array(
+            "gname_sale" => array('table' => 'reserve', 'div' => 'div_sale')
         )
     );
     if (isset($gnames[$i])) {
@@ -104,7 +112,8 @@ PPPP;
             $xgrid1->pageRows[$gname1] = 10;
             $xgrid1->column[$gname1][0]['name'] = '';
             $xgrid1->canDelete[$gname1] = TRUE;
-
+            $xgrid1->canAdd[$gname1] = FALSE;
+            $xgrid1->canEdit[$gname1] = TRUE;
             if ($i == 0) {
                 $xgrid1->column[$gname1][1] = $xgrid1->column[$gname1][0];
                 $xgrid1->column[$gname1][1]['name'] = 'تصویر';
@@ -133,9 +142,22 @@ PPPP;
                 $xgrid1->column[$gname1][1]['cfunction'] = array('sourceFn');
                 $xgrid1->column[$gname1][2]['name'] = 'روکشی';
                 $xgrid1->canDelete[$gname1] = FALSE;
+            } else if ($i == 3) {
+                $content = '';
+                //$xgrid1->whereClause[$gname1] = ' en = 1 order by refrence_id desc';
+                $xgrid1->column[$gname1][1]['name'] = 'رفرنس';
+                $xgrid1->column[$gname1][2]['name'] = 'مبلغ THT';
+                $xgrid1->column[$gname1][3]['name'] = 'مبلغ مشتری';
+                $xgrid1->column[$gname1][4]['name'] = '';
+                $xgrid1->column[$gname1][5]['name'] = 'تاریخ';
+                $xgrid1->column[$gname1][5]['cfunction'] = array('load_date');
+                $xgrid1->column[$gname1][6]['name'] = '';
+                $xgrid1->column[$gname1][7]['name'] = '';
+                $xgrid1->canDelete[$gname1] = FALSE;
+                $xgrid1->canAdd[$gname1] = FALSE;
+                $xgrid1->canEdit[$gname1] = FALSE;
             }
-            $xgrid1->canAdd[$gname1] = FALSE;
-            $xgrid1->canEdit[$gname1] = TRUE;
+
             $out = $xgrid1->getOut($_REQUEST);
             if ($xgrid1->done)
                 die($out);
@@ -187,6 +209,9 @@ JSS;
                         <a href="#" onclick="startAdd(2);">روکشی</a>
                     </li>  
                     <li>
+                        <a href="#" onclick="startAdd(3);">گزارش فروش</a>
+                    </li>  
+                    <li>
                         <a href="<?php echo site_url() ?>login">خروج</a>
                     </li>
                 </ul>
@@ -198,6 +223,7 @@ JSS;
                 <div id="div_ad"></div>
                 <div id="div_tour"></div>
                 <div id="div_rookeshi"></div>
+                <div id="div_sale"></div>
             </div>
         </div>
     </div>
