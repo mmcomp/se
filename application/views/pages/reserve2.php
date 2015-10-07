@@ -17,18 +17,25 @@ $flight_info = json_decode($data);
 $flight_info2 = json_decode($data2);
 $user_id = -1;
 if (isset($_REQUEST['bank'])) {
-    $SamanMID = "10156488";
+    $st = reserve_class::status($refrence_id);
+    $ticket_status = (int) $st['ticket_status'][0];
+    if (isset($st['ticket_status'][1])) {
+        $ticket_status += (int) $st['ticket_status'][1];
+    }
+    $SamanMID = "10247881"; //10156488" Gohar PIN;
     //$url = "http://185.55.225.70/saman/purchase.php";
-    $url = "http://ticketyab724.ir/reserve3";
+    $url = "http://" . $_SERVER['SERVER_NAME'] . site_url() . "reserve3"; //"http://ticketyab724.ir/reserve3";
     $out = new stdClass();
     $out->form = '';
     $out->id = '';
-    if (isset($_SESSION['tprice'])) {
+    if ($ticket_status < 0) {
+        $out->id = -1;
+    } else if (isset($_SESSION['tprice']) && $ticket_status == 0) {
         $tprice = (int) $_SESSION['tprice'];
         $aprice = (int) $_SESSION['aprice'];
         if ($tprice > 1000) {
             $my = new mysql_class;
-            $ln = $my->ex_sqlx("insert into reserve (refrence_id,total_asli,total_moshtari,user_id,tarikh) values ($refrence_id,$aprice,$tprice,$user_id,'".date("Y-m-d H:i:s")."')", FALSE);
+            $ln = $my->ex_sqlx("insert into reserve (refrence_id,total_asli,total_moshtari,user_id,tarikh) values ($refrence_id,$aprice,$tprice,$user_id,'" . date("Y-m-d H:i:s") . "')", FALSE);
             $rid = $my->insert_id($ln);
             $my->close($ln);
             $frm = <<<FORM
@@ -336,6 +343,10 @@ for ($i = 0; $i < count($passengers); $i++) {
             {
                 $(document.body).append(res.form);
                 $("#" + res.id).submit();
+            }
+            else if (res.form.id === '-1')
+            {
+                alert('بلیت توسط ادمین کنسل شده است');
             }
             else
             {

@@ -7,12 +7,12 @@
             <div id="map_canvas1" style="padding: 70px 120px; border: 1px solid #42d3dc;"></div>
         </div>
         <div id="myAnchor" class="gh-con-us col-sm-3">
-            <img src="<?php echo asset_url(); ?>images/img/tell.png" style="position: absolute; margin-top: -40px; margin-right: 90px;">
-            Tel : (+9851) 3855 91 29-31
+            <img src="<?php echo asset_url(); ?>images/img/tell.png" style="position: absolute; margin-top: -40px; margin-right: 30px;">
+            Tel : 38080
             <br>
-            Reservation : 0915 822 6800
+            Reservation : 38080
             <br>
-            Fax : (+9851) 3342 77 17
+            Fax : 38080
             <br>
         </div>
         <div class="col-sm-3"></div>
@@ -24,11 +24,11 @@
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
                 <div class="gh-con-us-mob">
-                    Tel : (+9851) 3855 91 29-31
+                    Tel : 38080
                     <br>
-                    Reservation : 0915 822 6800
+                    Reservation : 38080
                     <br>
-                    Fax : (+9851) 3342 77 17
+                    Fax : 38080
                     <br>
                 </div>
             </div>

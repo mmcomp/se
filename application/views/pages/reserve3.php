@@ -10,27 +10,47 @@ if (isset($_REQUEST['State'])) {
     $refrence_id = 0;
     $en = ($State == 'OK') ? 1 : 2;
     $my = new mysql_class();
-//    echo "select refrence_id from reserve where id = $ResNum";
     $my->ex_sql("select refrence_id from reserve where id = $ResNum", $q);
     if (isset($q[0])) {
         $refrence_id = (int) $q[0]['refrence_id'];
     } else {
         $en = 3;
     }
-//    echo "refId = $refrence_id<br/>\n";
-//    echo "update reserve set en = $en , bank_result = '" . json_encode($bank_result) . "' where id = $ResNum";
-    $my->ex_sqlx("update reserve set en = $en , bank_result = '" . json_encode($bank_result) . "', tarikh = '".date("Y-m-d H:i:s")."' where id = $ResNum");
+    $st = reserve_class::status($refrence_id);
+    $ticket_status = (int) $st['ticket_status'][0];
+    if (isset($st['ticket_status'][1])) {
+        $ticket_status += (int) $st['ticket_status'][1];
+    }
+    if ($ticket_status != 0) {
+        $en = 4;
+    }
     if ($en == 2) {
-//        echo "Canceled";
-//        var_dump($_REQUEST);
-        //redirect("home?err=در پرداخت شما مشکلی پیش آمد در صورت کم شدن مبلغ به حساب شما بر خواهد گشت"."\n"."کد رهگیری : $refrence_id");
         echo('در پرداخت شما با پیام زیر خطایی رخ داده :' . "<br/>\n" . $State . '<br/><a href="' . site_url() . 'home">بازگشت</a>');
     } else if ($en == 1) {
-//        echo "DONE";
-        $out = reserve_class::confirm($refrence_id);
-//        var_dump($out);
+        $url_bank = "https://acquirer.samanepay.com/payments/referencepayment.asmx?WSDL";
+        $soapclient = new nusoap_client($url_bank, 'wsdl');
+        $soapProxy = $soapclient->getProxy();
+        if ($err = $soapclient->getError()) {
+            echo $err;
+            echo '<h2>Unknown Error</h2><pre>خطا در پرداخت <br>لطقا با پشتیبانی تماس بگیرید</pre><br/><a href="' . site_url() . 'home">بازگشت</a>';
+            $en = 5;
+        }
+        $res = $soapProxy->verifyTransaction($RefNum, $SamanMID); #reference number and sellerid
+        if ($res <= 0) {
+            echo 'verification failed 1: <br>بروز خطا در سیستم بانکی<br>' . $res;
+            echo '<h2>verification Error</h2><pre>خطا در پرداخت <br>لطقا با پشتیبانی تماس بگیرید</pre>';
+            $en = 6;
+        } elseif ($res != $trans->amount) {
+            echo 'verification failed : <br>بروز خطا در سیستم مالی<br>' . $res;
+            echo '<h2>verification Error 2</h2><pre>خطا در پرداخت <br>لطقا با پشتیبانی تماس بگیرید</pre>';
+            $en = 7;
+        } else {
+            $out = reserve_class::confirm($refrence_id);
+        }
+    } else if ($en == 4) {
+        echo('رزرو شما توسط ادمین کنسل شد :' . "<br/>\n" . $State . '<br/>مبلغ شما تا ۷۲ ساعت دیگر به حساب شما بر می گردد<br/><a href="' . site_url() . 'home">بازگشت</a>');
     }
-//    die();
+    $my->ex_sqlx("update reserve set en = $en , bank_result = '" . json_encode($bank_result) . "', tarikh = '" . date("Y-m-d H:i:s") . "' where id = $ResNum");
 } else {
     die('Access ERROR.');
 }
@@ -180,7 +200,7 @@ for ($i = 0; $i < count($passengers); $i++) {
                     <li class="visible-lg-inline-block visible-md-inline-block"><span>ساعت خروج :</span><?php echo $flight_info->ftime; ?></li>
                     <li class="visible-lg-inline-block visible-md-inline-block"><span>ساعت ورود : </span><?php echo $flight_info->ltime; ?></li>
                 </ul>
-    <?php if ($flight_info2 != NULL) { ?>
+                <?php if ($flight_info2 != NULL) { ?>
                     <ul>
                         <li class="visible-lg-inline-block visible-md-inline-block"><span>مبدا : </span><?php echo $flight_info2->from_city; ?></li>
                         <li class="visible-lg-inline-block visible-md-inline-block"><span>مقصد : </span><?php echo $flight_info2->to_city; ?></li>
@@ -190,7 +210,7 @@ for ($i = 0; $i < count($passengers); $i++) {
                         <li class="visible-lg-inline-block visible-md-inline-block"><span>ساعت خروج :</span><?php echo $flight_info2->ftime; ?></li>
                         <li class="visible-lg-inline-block visible-md-inline-block"><span>ساعت ورود : </span><?php echo $flight_info2->ltime; ?></li>
                     </ul>
-    <?php } ?>
+                <?php } ?>
             </div><!--flight-summery-large-->
             <div class="col-sm-4 col-xs-12 hidden-lg hidden-md flight-summery-body">
                 <header>اطلاعات پرواز</header>
@@ -229,12 +249,12 @@ for ($i = 0; $i < count($passengers); $i++) {
                             </tr>
                         </thead>
                         <tbody>
-    <?php echo $tr_large ?>
+                            <?php echo $tr_large ?>
                         </tbody>
                     </table>
 
                     <table class="visible-sm visible-xs table passenger-info-table-small">
-                            <?php echo $tr_small ?>
+                        <?php echo $tr_small ?>
                     </table>
                     <table class="visible-lg visible-md passenger-extra-info-large">
                         <thead>
@@ -248,10 +268,10 @@ for ($i = 0; $i < count($passengers); $i++) {
                         <tbody>
                             <tr>
                                 <td>
-    <?php echo $mobile ?>                            
+                                    <?php echo $mobile ?>                            
                                 </td>
                                 <td>
-    <?php echo $address ?>
+                                    <?php echo $address ?>
                                 </td>
                                 <td>
                                     <?php echo $email ?>
@@ -266,7 +286,7 @@ for ($i = 0; $i < count($passengers); $i++) {
                         <tr>
                             <td>تلفن همراه</td>
                             <td>
-    <?php echo $mobile ?>
+                                <?php echo $mobile ?>
                             </td>
                         </tr>
                         <tr>

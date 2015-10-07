@@ -23,9 +23,10 @@ class search_class {
     public static function loadLowFare($dat, $count = 8) {
         $out = array();
         $client = new nusoap_client("http://thtcenter.ir/se/server.php?wsdl", true);
+        $conf = new conf();
         $arguments = array(
-            "user" => "arad",
-            "pass" => "123456",
+            "user" => $conf->wuser,
+            "pass" => $conf->wpass,
             "dat" => (int) $dat,
             "count" => (int) $count
         );
@@ -64,12 +65,13 @@ class search_class {
     }
 
     public static function search($aztarikh, $tatarikh, $from_city, $to_city, $extra, $airlines, $sort, $way) {
+        $conf = new conf();
         $airlines = (count($airlines) > 0) ? implode(",", $airlines) : '';
         $out = array();
         $client = new nusoap_client("http://thtcenter.ir/se/server.php?wsdl", true);
         $arguments = array(
-            "user" => "arad",
-            "pass" => "123456",
+            "user" => $conf->wuser,
+            "pass" => $conf->wpass,
             "aztarikh" => $aztarikh,
             "tatarikh" => $tatarikh,
             "from_city" => $from_city,

@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 $voucher_id = $_SESSION['voucher_id'];
 $refrence_id = $_SESSION['refrence_id'];
 $data = $_SESSION['data'];
@@ -8,6 +10,22 @@ $inf = (int) $_SESSION['inf'];
 $price = $_SESSION['price'];
 $flight_info2 = NULL;
 $rookeshi2 = 0;
+$days = '';
+$months = '';
+$years = '';
+for($i = 1;$i <= 31;$i++)
+{
+    $days .= "<option values='$i'>$i</option>";
+}
+for($i = 1;$i <= 12;$i++)
+{
+    $months .= "<option values='$i'>$i</option>";
+}
+$pyear = (int)$this->inc_model->perToEnNums(jdate("Y"));
+for($i = 1300;$i <= $pyear;$i++)
+{
+    $years .= "<option values='$i'>$i</option>";
+}
 $flight_info = json_decode($data);
 $rookeshi = rookeshi_class::get($flight_info->source_id);
 if (isset($_SESSION['data2'])) {
@@ -63,7 +81,7 @@ if (isset($_REQUEST['gender'])) {
         $passengers[] = $passenger;
     }
     $sabt_passenger = reserve_class::passengers($refrence_id, $passengers, $mobile, $email, $address, $extra_info);
-    var_dump($passenger);
+//    var_dump($passenger);
     if ($sabt_passenger['err']['code'] == 0) {
         $_SESSION ['passengers'] = $passengers;
         $_SESSION['address'] = $address;
@@ -74,7 +92,7 @@ if (isset($_REQUEST['gender'])) {
         redirect('reserve2');
     } else {
         $err = 'در ثبت رزرو شما خطایی رخ داده است. لطفا مجددا تلاش فرمایید.';
-        //redirect('home?err=' . $err);
+        redirect('home?err=' . $err);
     }
 }
 
@@ -100,7 +118,9 @@ $tr = <<<mmcomp
                 <input name="shomare_melli[]" type="text" class="inp1 shomare_melli_passport">
                 <input name="passport_engheza[]" type="text" placeholder="انقضای پاسپورت" title="بصورت : روز-ماه-سال" class="inp1 passport_engheza">
             </td>
-            <td><input name="birthday[]" type="text" title="بصورت : روز-ماه-سال" placeholder=" روز-ماه-سال" class="inp1 birthday"></td>
+            <td><select name="birthday[day][]" placeholder="روز" class="inp1">$days</select></td>
+            <td><select name="birthday[month][]" placeholder="ماه" class="inp1">$months</select></td>
+            <td><select name="birthday[year][]" placeholder="سال" class="inp1">$years</select></td>
         </tr>
 mmcomp;
 
@@ -116,7 +136,7 @@ $trs = <<<ghh
             <tr>
                 <td>جنسیت</td>
                 <td>
-                    <select name="gender[]">
+                    <select na<input name="birthday[year][]" type="text"  placeholder="سال" class="inp2 birthday">me="gender[]">
                         <option value="1">مرد</option>
                         <option value ="0">زن</option>
                     </select>
@@ -145,7 +165,9 @@ $trs = <<<ghh
             </tr>
             <tr style="border-bottom: 2px solid #ddd;">
                 <td>تاریخ تولد</td>
-                <td><input name="birthday[]" type="text" title="بصورت : روز-ماه-سال" placeholder=" روز-ماه-سال" class="inp2 birthday"></td>
+                <td><select name="birthday[year][]" placeholder="سال" class="inp1">$years</select></td>
+                <td><select name="birthday[month][]" placeholder="ماه" class="inp1">$months</select></td>
+                <td><select name="birthday[day][]" placeholder="روز" class="inp1">$days</select></td>
             </tr>
 ghh;
 
@@ -193,7 +215,7 @@ if ($adl != 0) {
                 (adult)
             </td>
             <td>
-                $adl نفر
+               $adl نفر
             </td>
             <td>
                $adl_price تومان
@@ -424,7 +446,7 @@ for ($i = 0; $i < $inf; $i++) {
                                 <th>نام</th>
                                 <th>نام خانوادگی</th>
                                 <th>شماره ملی - شماره پاسپورت</th>
-                                <th>تاریخ تولد</th>
+                                <th colspan="3">تاریخ تولد</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -20,11 +20,11 @@ if (isset($_REQUEST['adult'])) {
     $agency_id = ((int) $_REQUEST['agency_id']).','.((int) $_REQUEST['agency_id2']);
     $source_id = ((int) $_REQUEST['source_id']).','.((int) $_REQUEST['source_id2']);
     $flight_id = ((int) $_REQUEST['sel_flight_id']).','.((int) $_REQUEST['sel_flight_id2']);
-    $flight_id = '1,2';//'191,191'; //Test
-    $agency_id = '724,724';//'724,724'; //Test
-    $source_id = '1,1';//'1,1';//Test
+    $flight_id = '1';//'1,2'; //Test
+    $agency_id = '724';//'724,724'; //Test
+    $source_id = '1';//'1,1';//Test
     $ncap = ((int) $_REQUEST['ncap']).','.((int) $_REQUEST['ncap2']);
-    $ncap = '1,1';//'1,1'; //test
+    $ncap = '1';//'1,1'; //test
     $out = $res->preReserve($source_id, $flight_id, $ncap, $class_ghimat, $adl, $chd, $inf, $ip, $agency_id);
     $data = urlencode(trim($_REQUEST['sel_data']));
     $data2 = urlencode(trim($_REQUEST['sel_data2']));
@@ -49,6 +49,7 @@ if (isset($_REQUEST['adult'])) {
         $_SESSION['state'] = 1;
         redirect('reserve1');
     } else {
+        $jout  = json_encode($out);
         $tmpp = <<< tt
         <div class="row">
              <div class="col-sm-2"></div>
@@ -57,6 +58,9 @@ if (isset($_REQUEST['adult'])) {
              </div>
              <div class="col-sm-2"></div>
         </div>
+        <script>
+            console.log($jout);
+        </script>
 tt;
     }
 }
@@ -97,7 +101,7 @@ $result_tmp = <<< RT
                                 </tr>
                                 <tr>
                                     <td>
-                                        #ftime# -> #ltime#
+                                        #ftime#
                                     </td>
                                 </tr>
                             </table>
@@ -137,6 +141,8 @@ $results = array();
 $tmppp = '';
 if ($aztarikh != '' && $tatarikh != '' && $from_city != '' && $to_city != '') {
     $results_tmp = search_class::search($aztarikh, $tatarikh, $from_city, $to_city, $extra, isset($_REQUEST['airlines']) ? $_REQUEST['airlines'] : array(), isset($_REQUEST['sort']) ? $_REQUEST['sort'] : 'all', $way);
+//    var_dump($results_tmp['query']);
+//    die();
     $results = $results_tmp["data"];
     $flight_results = "<div style='padding:10px; color:red;font-size:18px; font-family:yekan;'>" . 'نتیجه ای یافت نشد.' . "</div>";
     if (count($results) > 0) {
